@@ -1,0 +1,17 @@
+{
+  "backend/main.mo": "Empty Motoko actor with no implemented logic.",
+  "feature_evidence.json": "Metadata file mapping implemented features to associated source files, components, and test IDs.",
+  "frontend-file-summaries.txt": "Provides short descriptions of key frontend files for documentation or tooling.",
+  "frontend/index.css": "Tailwind‑based global stylesheet defining the Valentine theme color tokens and base styling.",
+  "frontend/index.html": "HTML entry point loading the React app with Valentine‑themed title and metadata.",
+  "frontend/src/App.tsx": "Main React component handling the prompt, evasive button logic, and celebration state UI.",
+  "frontend/src/components/CelebrationOverlay.tsx": "Component displaying animated fireworks, sparkles, and floating hearts during celebration.",
+  "frontend/src/config/valentineConfig.ts": "Holds configurable text for site name, prompt, button labels, and celebration messages.",
+  "frontend/src/hooks/useActor.ts": "Hook creating and managing authenticated or anonymous backend actors using React Query.",
+  "frontend/src/hooks/useEvasiveButton.ts": "Hook calculating random safe positions for the evasive 'No' button within its container.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Authentication context and hook managing Internet Identity login, stored identities, and status.",
+  "frontend/src/index.css": "Defines Tailwind layers, theme CSS variables, global styles, and custom Valentine-themed UI classes including layout, background image, and styled prompt/buttons.",
+  "frontend/src/main.tsx": "Bootstraps the React app, sets up React Query and Internet Identity provider, and loads global styles before rendering App.",
+  "frontend/tailwind.config.js": "Configures Tailwind with dark mode, content paths, extended OKLCH color tokens, typography, animations, and custom theme settings.",
+  "project_state.json": "Stores project metadata, feature descriptions, image requirements, and notes about build issues for the Valentine’s website."
+}

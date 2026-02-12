@@ -1,0 +1,459 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 1rem;
+        /* Valentine's Day warm palette - pinks, reds, creams */
+        --background: 0.98 0.02 15;
+        --foreground: 0.25 0.08 15;
+        --card: 1 0.015 15;
+        --card-foreground: 0.25 0.08 15;
+        --popover: 1 0.015 15;
+        --popover-foreground: 0.25 0.08 15;
+        --primary: 0.65 0.22 15;
+        --primary-foreground: 1 0.01 15;
+        --secondary: 0.92 0.04 25;
+        --secondary-foreground: 0.35 0.08 15;
+        --muted: 0.95 0.02 20;
+        --muted-foreground: 0.55 0.05 15;
+        --accent: 0.88 0.15 355;
+        --accent-foreground: 0.25 0.08 15;
+        --destructive: 0.55 0.25 15;
+        --destructive-foreground: 1 0.01 15;
+        --border: 0.90 0.03 20;
+        --input: 0.90 0.03 20;
+        --ring: 0.65 0.22 15;
+        --chart-1: 0.65 0.22 15;
+        --chart-2: 0.75 0.18 355;
+        --chart-3: 0.85 0.12 25;
+        --chart-4: 0.70 0.20 5;
+        --chart-5: 0.80 0.15 345;
+    }
+
+    .dark {
+        --background: 0.15 0.05 15;
+        --foreground: 0.98 0.02 15;
+        --card: 0.20 0.06 15;
+        --card-foreground: 0.98 0.02 15;
+        --popover: 0.18 0.06 15;
+        --popover-foreground: 0.98 0.02 15;
+        --primary: 0.75 0.20 355;
+        --primary-foreground: 0.15 0.05 15;
+        --secondary: 0.25 0.07 15;
+        --secondary-foreground: 0.98 0.02 15;
+        --muted: 0.25 0.06 15;
+        --muted-foreground: 0.70 0.08 15;
+        --accent: 0.35 0.10 355;
+        --accent-foreground: 0.98 0.02 15;
+        --destructive: 0.60 0.22 15;
+        --destructive-foreground: 0.98 0.02 15;
+        --border: 0.30 0.06 15;
+        --input: 0.30 0.06 15;
+        --ring: 0.75 0.20 355;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+}
+
+/* App Container */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/generated/valentine-bg.dim_1920x1080.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+  min-height: 80vh;
+}
+
+/* Prompt Card */
+.prompt-card {
+  background: oklch(var(--card) / 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 2rem;
+  padding: 3rem 2rem;
+  box-shadow: 0 20px 60px oklch(var(--primary) / 0.15);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  border: 2px solid oklch(var(--border));
+}
+
+.prompt-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: oklch(var(--primary));
+  margin-bottom: 3rem;
+  line-height: 1.2;
+  font-family: 'Georgia', serif;
+}
+
+/* Buttons Container */
+.buttons-container {
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Yes Button */
+.yes-button {
+  background: oklch(var(--primary));
+  color: oklch(var(--primary-foreground));
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 1rem 3rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px oklch(var(--primary) / 0.3);
+  z-index: 2;
+}
+
+.yes-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px oklch(var(--primary) / 0.4);
+}
+
+.yes-button:active {
+  transform: scale(1.05);
+}
+
+/* No Button - Evasive */
+.no-button {
+  position: absolute;
+  background: oklch(var(--muted));
+  color: oklch(var(--muted-foreground));
+  font-size: 1.125rem;
+  font-weight: 500;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  border: 2px solid oklch(var(--border));
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+  top: 80px;
+  left: 50%;
+  margin-left: -4rem;
+}
+
+.no-button:hover {
+  background: oklch(var(--muted));
+}
+
+/* Celebration State */
+.app-container.celebrated {
+  background: linear-gradient(135deg, 
+    oklch(0.95 0.05 15) 0%, 
+    oklch(0.90 0.08 355) 50%, 
+    oklch(0.85 0.10 345) 100%
+  );
+}
+
+.celebration-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.celebration-message {
+  text-align: center;
+  animation: fadeInScale 0.8s ease-out;
+}
+
+.celebration-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: oklch(var(--primary));
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-family: 'Georgia', serif;
+  text-shadow: 2px 2px 4px oklch(var(--background) / 0.3);
+}
+
+.celebration-subtext {
+  font-size: 1.5rem;
+  color: oklch(var(--foreground));
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.heart-icon-large {
+  color: oklch(var(--primary));
+  animation: heartBeat 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* Celebration Overlay */
+.celebration-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.fireworks {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 800px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.fireworks.animate {
+  animation: fireworksBurst 2.5s ease-out forwards;
+}
+
+.fireworks-image {
+  width: 100%;
+  height: auto;
+  filter: brightness(1.2);
+}
+
+.sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.sparkles.animate {
+  animation: sparklesFade 3s ease-in-out forwards;
+}
+
+.sparkles-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: screen;
+}
+
+/* Floating Hearts */
+.floating-hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  font-size: 2rem;
+  animation: floatUp 5s ease-in infinite;
+  opacity: 0;
+}
+
+/* Footer */
+.app-footer {
+  padding: 1.5rem;
+  text-align: center;
+  color: oklch(var(--muted-foreground));
+  font-size: 0.875rem;
+  position: relative;
+  z-index: 1;
+  background: oklch(var(--background) / 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.footer-link {
+  color: oklch(var(--primary));
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: oklch(var(--primary) / 0.8);
+  text-decoration: underline;
+}
+
+.footer-year {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* Animations */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.15);
+  }
+}
+
+@keyframes fireworksBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}
+
+@keyframes sparklesFade {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .prompt-card {
+    padding: 2rem 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  .prompt-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .yes-button {
+    font-size: 1.25rem;
+    padding: 0.875rem 2.5rem;
+  }
+
+  .no-button {
+    font-size: 1rem;
+    padding: 0.625rem 1.75rem;
+  }
+
+  .celebration-title {
+    font-size: 2rem;
+  }
+
+  .celebration-subtext {
+    font-size: 1.25rem;
+  }
+
+  .heart-icon-large svg {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .buttons-container {
+    min-height: 180px;
+  }
+}
+
+@media (max-width: 400px) {
+  .prompt-title {
+    font-size: 1.75rem;
+  }
+
+  .celebration-title {
+    font-size: 1.5rem;
+  }
+
+  .celebration-subtext {
+    font-size: 1.125rem;
+  }
+}

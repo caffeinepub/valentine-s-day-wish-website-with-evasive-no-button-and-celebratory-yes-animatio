@@ -1,2 +1,3 @@
-# valentine-s-day-wish-website-with-evasive-no-button-and-celebratory-yes-animatio
-Exported from Caffeine project: Valentine’s Day wish website with evasive “No” button and celebratory “Yes” animation
+## Valentine’s Day wish website with evasive “No” button and celebratory “Yes” animation
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

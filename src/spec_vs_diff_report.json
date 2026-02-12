@@ -1,0 +1,77 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-12T08:36:32.003Z",
+  "summary": "Core Valentine single-page UI with Yes/No choices, evasive No behavior, and a celebration overlay is implemented. However, the required generated image assets are not shown as added in the diff, and the branding config requirement is only partially met (site name/title not clearly driven from the central config). Several unrequested authentication/actor/query features and a promotional footer were added.",
+  "missing_requirements": [
+    {
+      "id": "REQ-4",
+      "requirement": "Add a simple configuration mechanism for branding text so the site name/title and the Valentine’s Day message can be changed without rewriting components.",
+      "reason": "A central config exists, but the site name/title does not appear to be rendered from it. The HTML <title> is hardcoded and not connected to the config, and App.tsx does not display valentineConfig.siteName.",
+      "evidence": [
+        "frontend/src/config/valentineConfig.ts",
+        "frontend/src/App.tsx",
+        "frontend/index.html"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Add required static image assets under frontend/public/assets/generated and render them in the UI.",
+      "reason": "The UI references the required image paths, but the diff does not show the actual image files being added under frontend/public/assets/generated, so existence of required assets cannot be verified from the diff summary.",
+      "evidence": [
+        "frontend/src/components/CelebrationOverlay.tsx",
+        "frontend/src/index.css"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Internet Identity authentication provider and related auth hook/context added.",
+      "reason": "BuildRequest explicitly says third-party auth is a non-goal and Internet Identity is not required for this app; these auth files and provider usage are not requested by any REQ.",
+      "evidence": [
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/main.tsx"
+      ]
+    },
+    {
+      "description": "Actor creation/query management via react-query (useActor hook) added.",
+      "reason": "No backend interaction requirements were requested; the Valentine page is purely frontend behavior per REQ-1..REQ-6.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts",
+        "frontend/src/main.tsx"
+      ]
+    },
+    {
+      "description": "Promotional footer linking to caffeine.ai added.",
+      "reason": "Not requested in the BuildRequest requirements/acceptance criteria.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "description": "Use of lucide-react Heart icon component.",
+      "reason": "Not requested; the BuildRequest only required using provided static images for background/fireworks/sparkles.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.72,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/CelebrationOverlay.tsx",
+    "frontend/src/config/valentineConfig.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useEvasiveButton.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

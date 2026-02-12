@@ -1,0 +1,146 @@
+{
+  "kind": "build_request",
+  "title": "Valentine’s Day wish website with evasive “No” button and celebratory “Yes” animation",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a single-page Valentine’s Day wish website that presents a playful prompt and two primary choices: a “Yes” button and an evasive “No” (or “Escape”) button.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-4",
+          "msg-6"
+        ],
+        "quotes": [
+          "create same code with different name",
+          "its a valentine day wish website in which multiple button option for escape and yes",
+          "yes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On initial load, the page shows a Valentine’s Day themed prompt with two clear buttons: “Yes” and “No” (or “Escape”).",
+        "The experience works on both desktop and mobile screen sizes without layout breaking."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement the evasive behavior for the “No/Escape” button so that when the user attempts to click/tap it, the button moves to a new position within the visible container, making it difficult to select.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "multiple button option for escape and yes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Attempting to click/tap “No/Escape” causes it to move to a different position within the bounds of the main content area.",
+        "The button never moves off-screen or becomes unreachable due to overflow.",
+        "The evasive behavior works with both mouse and touch interactions."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "When the user clicks “Yes”, transition the UI into a celebration state that shows fireworks/crackers and sparkles animation and displays a Valentine’s Day message.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "when click on yes its showing crackers and sparkles and. valentine day msg"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking “Yes” triggers a visible celebratory animation effect (fireworks/crackers + sparkles) lasting at least ~2 seconds.",
+        "After clicking “Yes”, a Valentine’s Day message is shown prominently on the page.",
+        "The “Yes” action cannot be accidentally re-triggered repeatedly; the UI should either disable the buttons or switch to a final state."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add a simple configuration mechanism for branding text so the site name/title and the Valentine’s Day message can be changed without rewriting components (e.g., a single constants/config file used by the UI).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "create same code with different name"
+        ]
+      },
+      "acceptanceCriteria": [
+        "There is one central place to change the displayed site name/title.",
+        "There is one central place to change the final Valentine’s Day message text.",
+        "Changing those values updates the UI on refresh without further code changes."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Use a coherent, creative visual theme appropriate for a Valentine’s Day wish site (consistent colors, typography, spacing, and button styling) and apply it across all UI states (initial prompt, evasive interaction, celebration state). Do not use a blue/purple theme.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "valentine day wish website"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The UI has a consistent Valentine’s Day aesthetic (e.g., warm/pink/red/cream palette, romantic typography choices, cohesive layout).",
+        "The same theme is maintained across initial and post-“Yes” celebration states.",
+        "No primary theme relies on blue/purple as the dominant palette."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Add required static image assets (generated) under frontend/public/assets/generated and render them in the UI as part of the visual design (do not serve images through the backend).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "showing crackers and sparkles"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All required images listed in imageRequirements.required exist in frontend/public/assets/generated.",
+        "The UI references these images as static assets and they display correctly in the browser.",
+        "No backend code is used to fetch/serve these images."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend must not modify files in the immutablePaths list: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Backend must remain a single Motoko actor (no additional backend services).",
+    "Use English for any user-facing text."
+  ],
+  "nonGoals": [
+    "Integrating third-party authentication providers (only Internet Identity is allowed, but not required for this app).",
+    "Real-time multiplayer or chat features.",
+    "External database integration or non-Motoko backend services."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Romantic heart-themed background illustration (valentine-bg.dim_1920x1080.png)",
+      "Fireworks/crackers burst illustration (fireworks-burst.dim_1024x1024.png)",
+      "Sparkles particle overlay illustration (sparkles-overlay.dim_1024x1024.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}
