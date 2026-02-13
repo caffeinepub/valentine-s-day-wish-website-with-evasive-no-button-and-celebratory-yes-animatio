@@ -1,53 +1,34 @@
 {
   "kind": "build_request",
-  "title": "Replace the initial page background crackers effect with a different animation",
+  "title": "Remove background on celebration (post-Yes) screen",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Ensure the initial (first) page no longer displays any “background crackers”/wallpaper-style background layer, including removing/avoiding any usage of the generated asset `/assets/generated/valentine-bg.dim_1920x1080.png` and any related fixed background-image layer so the prompt card sits on the gradient background only.",
+      "text": "Remove the background from the post-Yes (celebration) screen so that after clicking the \"Yes\" button the celebration/section page does not show the app background/gradient.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "remove that background crackers one and add some another animation"
+          "still that background coming on secton page after clicking yes button but i just want to remove that bg from there"
         ]
       },
       "acceptanceCriteria": [
-        "On the initial page, there is no crackers/wallpaper background visible behind the prompt card.",
-        "The frontend codebase contains no active reference that renders `/assets/generated/valentine-bg.dim_1920x1080.png` on the initial page."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Replace the current initial-page background animation (the floating heart emoticons rendered by `InitialFloatingHearts`) with a different background animation that runs continuously behind the prompt card, does not block pointer events, and does not interfere with the evasive button interactions.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "add some another animation"
-        ]
-      },
-      "acceptanceCriteria": [
-        "`InitialFloatingHearts` is no longer rendered on the initial page, and the heart-emoticon background animation is not visible.",
-        "A new background animation is visible on the initial page behind the prompt card and runs continuously.",
-        "The background animation layer uses `pointer-events: none` (or equivalent) so all buttons remain fully interactive on desktop and mobile.",
-        "The new animation stays confined to the initial page (non-celebration state) and does not alter the celebration overlay behavior."
+        "Given the user clicks the Yes button and the celebration screen is shown, the page background behind the celebration content is not the app gradient background.",
+        "The initial floating-particles background is not visible on the celebration screen.",
+        "No background styling regressions occur on the initial (pre-Yes) screen: it still displays the current background/animation as before."
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, and anything under `frontend/src/components/ui`.",
-    "Keep the Internet Computer backend as a single Motoko actor; no additional backend services."
+    "Do not edit files under frontend/src/components/ui (read-only).",
+    "Do not edit immutable hook bootstrap/auth files listed in SYSTEM_CONTEXT immutablePaths."
   ],
   "nonGoals": [
-    "Do not change any user-facing text content/copy.",
-    "Do not change the celebration overlay animations/effects.",
-    "No backend (Motoko) changes are required for this request."
+    "Do not change the celebration overlay animations (fireworks/sparkles/hearts), except as needed to ensure they are not mistaken for the removed background.",
+    "Do not add new pages or routing; only adjust existing post-Yes view styling."
   ],
   "imageRequirements": {
     "required": [],

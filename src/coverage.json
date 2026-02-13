@@ -1,43 +1,24 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T08:44:14.988Z",
+  "generatedAt": "2026-02-13T09:43:01.353Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Ensure the initial (first) page no longer displays any “background crackers”/wallpaper-style background layer, including removing/avoiding any usage of the generated asset `/assets/generated/valentine-bg.dim_1920x1080.png` and any related fixed background-image layer so the prompt card sits on the gradient background only.",
+        "summary": "Remove the background from the post-Yes (celebration) screen so that after clicking the \"Yes\" button the celebration/section page does not show the app background/gradient.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/App.tsx"
+          "frontend/src/index.css"
         ],
         "matchedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-2",
-        "summary": "Replace the current initial-page background animation (the floating heart emoticons rendered by `InitialFloatingHearts`) with a different background animation that runs continuously behind the prompt card, does not block pointer events, and does not interfere with the evasive button interactions.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/InitialBackgroundAnimation.tsx",
-          "frontend/src/App.tsx",
-          "frontend/src/index.css",
-          "frontend/src/components/InitialFloatingHearts.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/InitialBackgroundAnimation.tsx",
-          "frontend/src/App.tsx",
-          "frontend/src/index.css",
-          "frontend/src/components/InitialFloatingHearts.tsx"
+          "frontend/src/index.css"
         ]
       }
     ]
@@ -47,9 +28,6 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/components/InitialBackgroundAnimation.tsx",
-    "frontend/src/components/InitialFloatingHearts.tsx",
     "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",

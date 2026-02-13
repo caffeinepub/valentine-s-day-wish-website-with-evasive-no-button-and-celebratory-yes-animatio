@@ -1,57 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Replace initial-page crackers wallpaper and hearts background with a new non-blocking animation",
+  "title": "Remove app background/gradient from post-Yes celebration screen",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Remove any crackers/wallpaper-style background layer from the initial page and ensure the prompt card sits on the gradient only, with no active rendering reference to the generated valentine background asset.",
+      "summary": "Ensure the post-Yes (celebration) view does not render the app gradient/floating-particles background while keeping the pre-Yes background unchanged.",
       "acceptanceCriteria": [
-        "On the initial page, there is no crackers/wallpaper background visible behind the prompt card.",
-        "The frontend codebase contains no active reference that renders `/assets/generated/valentine-bg.dim_1920x1080.png` on the initial page."
+        "Given the user clicks the Yes button and the celebration screen is shown, the page background behind the celebration content is not the app gradient background.",
+        "The initial floating-particles background is not visible on the celebration screen.",
+        "No background styling regressions occur on the initial (pre-Yes) screen: it still displays the current background/animation as before."
       ],
       "file_operations": [
         {
           "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Remove/avoid any initial-page fixed wallpaper/background-image layer styling (including any usage of `/assets/generated/valentine-bg.dim_1920x1080.png` if present) so the initial page shows only the existing gradient behind the prompt card."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Ensure the initial (non-celebration) render path does not include any crackers/wallpaper background layer or any usage of the generated background asset; keep the prompt card over the gradient-only app container."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Replace the initial-page floating heart emoticon animation (InitialFloatingHearts) with a new continuous background animation behind the prompt card that does not capture pointer events and does not interfere with evasive button interactions.",
-      "acceptanceCriteria": [
-        "`InitialFloatingHearts` is no longer rendered on the initial page, and the heart-emoticon background animation is not visible.",
-        "A new background animation is visible on the initial page behind the prompt card and runs continuously.",
-        "The background animation layer uses `pointer-events: none` (or equivalent) so all buttons remain fully interactive on desktop and mobile.",
-        "The new animation stays confined to the initial page (non-celebration state) and does not alter the celebration overlay behavior."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/InitialBackgroundAnimation.tsx",
-          "operation": "create",
-          "description": "Create a new initial-page-only background animation component that renders behind the prompt card, runs continuously, and is non-interactive (ensure the animation layer cannot block clicks/taps)."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Stop rendering `InitialFloatingHearts` on the initial page and render the new `InitialBackgroundAnimation` only in the non-celebration state; keep celebration behavior unchanged."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add/adjust CSS for the new initial-page background animation (including continuous keyframes, correct stacking under the prompt card, and `pointer-events: none`) and remove/disable styling that supported the previous `InitialFloatingHearts` animation so it is no longer visible."
-        },
-        {
-          "path": "frontend/src/components/InitialFloatingHearts.tsx",
-          "operation": "delete",
-          "description": "Remove the old heart-emoticon initial background component so it cannot be rendered going forward."
+          "description": "Update the celebration-state container styling (e.g., .app-container.celebrated) to remove/disable the gradient background so the celebration screen shows a non-gradient/neutral background (or transparent to the body background), while leaving the default .app-container gradient and InitialBackgroundAnimation behavior unchanged for the pre-Yes screen."
         }
       ]
     }

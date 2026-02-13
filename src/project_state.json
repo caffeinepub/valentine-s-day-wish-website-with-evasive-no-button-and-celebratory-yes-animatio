@@ -3,35 +3,22 @@
   "projectStateVersion": 3,
   "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Background still appears on the section page after clicking the 'Yes' button; user wants that background removed."
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-ensure-the-initial-first-page-no-longer-displays-any-background-crackers-wallpaper-style-background-layer-including-removing-avoiding-any-usage-of-the-generated-asset-assets-generated-valentine-bg-dim-1920x1080-png-and-any-related-fixed-background-image-layer-so-the-prompt-card-sits-on-the-gradient-background-only",
-      "title": "Ensure the initial (first) page no longer displays any “background crackers”/wallpaper-style background layer, including removing/avoiding any usage of the generated asset `/assets/generated/valentine-bg.dim_1920x1080.png` and any related fixed background-image layer so the prompt card sits on the gradient background only.",
+      "id": "feature-remove-the-background-from-the-post-yes-celebration-screen-so-that-after-clicking-the-yes-button-the-celebration-section-page-does-not-show-the-app-background-gradient",
+      "title": "Remove the background from the post-Yes (celebration) screen so that after clicking the \"Yes\" button the celebration/section page does not show the app background/gradient.",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
-    },
-    {
-      "id": "feature-replace-the-current-initial-page-background-animation-the-floating-heart-emoticons-rendered-by-initialfloatinghearts-with-a-different-background-animation-that-runs-continuously-behind-the-prompt-card-does-not-block-pointer-events-and-does-not-interfere-with-the-evasive-button-interactions",
-      "title": "Replace the current initial-page background animation (the floating heart emoticons rendered by `InitialFloatingHearts`) with a different background animation that runs continuously behind the prompt card, does not block pointer events, and does not interfere with the evasive button interactions.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
     }
   ],
-  "new_feature_requests": [
-    {
-      "id": "AR-1",
-      "summary": "Remove the \"background crackers\" animation on the animated first page and replace it with a different animation",
-      "reqIds": [],
-      "status": "pending"
-    }
-  ],
-  "projectName": "Replace the initial page background crackers effect with a different animation",
+  "new_feature_requests": [],
+  "projectName": "Remove background on celebration (post-Yes) screen",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

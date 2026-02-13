@@ -2,10 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-ensure-the-initial-first-page-no-longer-displays-any-background-crackers-wallpaper-style-background-layer-including-removing-avoiding-any-usage-of-the-generated-asset-assets-generated-valentine-bg-dim-1920x1080-png-and-any-related-fixed-background-image-layer-so-the-prompt-card-sits-on-the-gradient-background-only",
-      "featureTitle": "Ensure the initial (first) page no longer displays any “background crackers”/wallpaper-style background layer, including removing/avoiding any usage of the generated asset `/assets/generated/valentine-bg.dim_1920x1080.png` and any related fixed background-image layer so the prompt card sits on the gradient background only.",
+      "featureId": "feature-remove-the-background-from-the-post-yes-celebration-screen-so-that-after-clicking-the-yes-button-the-celebration-section-page-does-not-show-the-app-background-gradient",
+      "featureTitle": "Remove the background from the post-Yes (celebration) screen so that after clicking the \"Yes\" button the celebration/section page does not show the app background/gradient.",
       "files": [
-        "frontend/src/App.tsx",
         "frontend/src/index.css"
       ],
       "components": [
@@ -17,27 +16,6 @@
       ],
       "testIds": [
         "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-replace-the-current-initial-page-background-animation-the-floating-heart-emoticons-rendered-by-initialfloatinghearts-with-a-different-background-animation-that-runs-continuously-behind-the-prompt-card-does-not-block-pointer-events-and-does-not-interfere-with-the-evasive-button-interactions",
-      "featureTitle": "Replace the current initial-page background animation (the floating heart emoticons rendered by `InitialFloatingHearts`) with a different background animation that runs continuously behind the prompt card, does not block pointer events, and does not interfere with the evasive button interactions.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/InitialBackgroundAnimation.tsx",
-        "frontend/src/components/InitialFloatingHearts.tsx",
-        "frontend/src/index.css"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
       ],
       "confidence": "high"
     }

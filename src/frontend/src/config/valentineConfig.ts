@@ -3,6 +3,7 @@ export const valentineConfig = {
   question: "Will you be my Valentine? 💕",
   yesButtonText: "Yes! 💖",
   noButtonText: "No...",
-  celebrationMessage: "Yay! You made my heart skip a beat! 💕✨",
-  celebrationSubtext: "Happy Valentine's Day, my kuku! 🌹"
+  celebrationMessage: "Lets celebrate our meet and beginning",
+  celebrationSubtext: "Happy Valentine's Day, Kuku! 🌹"
 };
+
