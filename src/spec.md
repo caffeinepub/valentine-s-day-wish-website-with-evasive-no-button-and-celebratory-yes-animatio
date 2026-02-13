@@ -1,14 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Build a single-page Valentine’s Day wish site with a “Yes” choice, an evasive “No/Escape” button, and a celebratory animation/message on acceptance.
+**Goal:** Remove the initial page “background crackers” wallpaper layer and replace the existing floating-heart background animation with a different continuous, non-interfering animation.
 
 **Planned changes:**
-- Create a responsive single-page UI with a Valentine’s themed prompt and two primary buttons: “Yes” and “No/Escape”.
-- Implement evasive “No/Escape” behavior that repositions the button within the visible content bounds on mouse/touch attempts.
-- Add a “Yes” celebration state with a fireworks/crackers + sparkles animation lasting ~2+ seconds and a prominent Valentine’s Day message; prevent repeat triggering by disabling/switching state.
-- Add a simple config/constants file to change the site title/name and final Valentine’s Day message in one place.
-- Apply a cohesive Valentine’s visual theme (warm/pink/red/cream palette; no blue/purple-dominant styling) across both initial and celebration states.
-- Add and render required static generated image assets from `frontend/public/assets/generated` (no backend image serving).
+- Remove/avoid rendering any fixed wallpaper-style background on the initial page, including eliminating any active usage of `/assets/generated/valentine-bg.dim_1920x1080.png`.
+- Stop rendering the current initial-page `InitialFloatingHearts` heart-emoticon background animation.
+- Add a new continuous background animation behind the prompt card on the initial page that does not capture pointer events and does not interfere with the evasive button behavior.
+- Keep the new animation confined to the initial (non-celebration) page state and leave the celebration overlay unchanged.
 
-**User-visible outcome:** Visitors see a Valentine’s prompt with “Yes” and an evasive “No/Escape”; tapping “Yes” triggers a celebratory fireworks/sparkles effect and shows a Valentine’s message, consistently themed on both desktop and mobile.
+**User-visible outcome:** The first page shows only the gradient background behind the prompt card with a new subtle animated effect behind it; all buttons remain fully interactive, and the celebration overlay behaves exactly as before.

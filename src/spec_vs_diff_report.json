@@ -1,77 +1,56 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-12T08:36:32.003Z",
-  "summary": "Core Valentine single-page UI with Yes/No choices, evasive No behavior, and a celebration overlay is implemented. However, the required generated image assets are not shown as added in the diff, and the branding config requirement is only partially met (site name/title not clearly driven from the central config). Several unrequested authentication/actor/query features and a promotional footer were added.",
+  "generatedAt": "2026-02-13T08:44:14.985Z",
+  "summary": "REQ-2 appears implemented by replacing the initial-page heart-emoticon animation with a new non-interactive floating-particle background layer rendered only in the non-celebration state. REQ-1 cannot be confirmed from the provided diff summary because there’s no explicit evidence that references to the crackers/wallpaper background asset were removed/avoided (CSS is truncated). The diff also includes several unrequested changes, including user-facing copy/title updates.",
   "missing_requirements": [
     {
-      "id": "REQ-4",
-      "requirement": "Add a simple configuration mechanism for branding text so the site name/title and the Valentine’s Day message can be changed without rewriting components.",
-      "reason": "A central config exists, but the site name/title does not appear to be rendered from it. The HTML <title> is hardcoded and not connected to the config, and App.tsx does not display valentineConfig.siteName.",
+      "id": "REQ-1",
+      "requirement": "Ensure the initial (first) page no longer displays any “background crackers”/wallpaper-style background layer, including removing/avoiding any usage of the generated asset `/assets/generated/valentine-bg.dim_1920x1080.png` and any related fixed background-image layer so the prompt card sits on the gradient background only.",
+      "reason": "The diff summary does not show any explicit removal of the `/assets/generated/valentine-bg.dim_1920x1080.png` reference or removal of a fixed background-image layer. `frontend/src/index.css` is truncated, so the presence/absence of a wallpaper background cannot be verified from the provided evidence.",
       "evidence": [
-        "frontend/src/config/valentineConfig.ts",
-        "frontend/src/App.tsx",
-        "frontend/index.html"
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "requirement": "Add required static image assets under frontend/public/assets/generated and render them in the UI.",
-      "reason": "The UI references the required image paths, but the diff does not show the actual image files being added under frontend/public/assets/generated, so existence of required assets cannot be verified from the diff summary.",
-      "evidence": [
-        "frontend/src/components/CelebrationOverlay.tsx",
-        "frontend/src/index.css"
+        "frontend/src/index.css (truncated)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Internet Identity authentication provider and related auth hook/context added.",
-      "reason": "BuildRequest explicitly says third-party auth is a non-goal and Internet Identity is not required for this app; these auth files and provider usage are not requested by any REQ.",
+      "description": "User-facing text/copy changed in Valentine config (celebration subtext mentions \"love\" replaced by \"kuku\").",
+      "reason": "BuildRequest non-goal explicitly says not to change any user-facing text content/copy.",
       "evidence": [
-        "frontend/src/hooks/useInternetIdentity.ts",
-        "frontend/src/main.tsx"
+        "frontend-file-summaries.txt (entry for frontend/src/config/valentineConfig.ts)"
       ]
     },
     {
-      "description": "Actor creation/query management via react-query (useActor hook) added.",
-      "reason": "No backend interaction requirements were requested; the Valentine page is purely frontend behavior per REQ-1..REQ-6.",
+      "description": "Updated HTML title and meta description.",
+      "reason": "BuildRequest non-goal explicitly says not to change any user-facing text content/copy; document title/description are user-facing.",
       "evidence": [
-        "frontend/src/hooks/useActor.ts",
-        "frontend/src/main.tsx"
+        "frontend-file-summaries.txt (entry for frontend/index.html)"
       ]
     },
     {
-      "description": "Promotional footer linking to caffeine.ai added.",
-      "reason": "Not requested in the BuildRequest requirements/acceptance criteria.",
+      "description": "Added/introduced an `InitialFloatingHearts` component (heart-emoticon background layer).",
+      "reason": "REQ-2 requires that `InitialFloatingHearts` is no longer rendered on the initial page; adding/introducing this component is not requested for the replacement animation and is extra scope.",
       "evidence": [
-        "frontend/src/App.tsx"
+        "frontend/src/components/InitialFloatingHearts.tsx",
+        "frontend-file-summaries.txt (entry for frontend/src/components/InitialFloatingHearts.tsx)"
       ]
     },
     {
-      "description": "Use of lucide-react Heart icon component.",
-      "reason": "Not requested; the BuildRequest only required using provided static images for background/fireworks/sparkles.",
+      "description": "Tailwind configuration and additional styling/animation changes beyond the requested initial-page background animation swap (e.g., extended color tokens, typography, footer hover pulse effect).",
+      "reason": "Not requested in REQ-1/REQ-2 and expands scope beyond replacing the initial-page background effect.",
       "evidence": [
-        "frontend/src/App.tsx"
+        "frontend-file-summaries.txt (entries for frontend/tailwind.config.js and frontend/src/index.css)"
       ]
     }
   ],
-  "confidence": 0.72,
+  "confidence": 0.62,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
     "frontend/src/App.tsx",
-    "frontend/src/components/CelebrationOverlay.tsx",
-    "frontend/src/config/valentineConfig.ts",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useEvasiveButton.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/components/InitialBackgroundAnimation.tsx",
+    "frontend/src/components/InitialFloatingHearts.tsx",
     "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

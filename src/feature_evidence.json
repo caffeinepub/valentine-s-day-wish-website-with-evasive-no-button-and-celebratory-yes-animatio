@@ -2,10 +2,9 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-a-single-page-valentine-s-day-wish-website-that-presents-a-playful-prompt-and-two-primary-choices-a-yes-button-and-an-evasive-no-or-escape-button",
-      "featureTitle": "Create a single-page Valentine’s Day wish website that presents a playful prompt and two primary choices: a “Yes” button and an evasive “No” (or “Escape”) button.",
+      "featureId": "feature-ensure-the-initial-first-page-no-longer-displays-any-background-crackers-wallpaper-style-background-layer-including-removing-avoiding-any-usage-of-the-generated-asset-assets-generated-valentine-bg-dim-1920x1080-png-and-any-related-fixed-background-image-layer-so-the-prompt-card-sits-on-the-gradient-background-only",
+      "featureTitle": "Ensure the initial (first) page no longer displays any “background crackers”/wallpaper-style background layer, including removing/avoiding any usage of the generated asset `/assets/generated/valentine-bg.dim_1920x1080.png` and any related fixed background-image layer so the prompt card sits on the gradient background only.",
       "files": [
-        "frontend/index.html",
         "frontend/src/App.tsx",
         "frontend/src/index.css"
       ],
@@ -22,11 +21,12 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-the-evasive-behavior-for-the-no-escape-button-so-that-when-the-user-attempts-to-click-tap-it-the-button-moves-to-a-new-position-within-the-visible-container-making-it-difficult-to-select",
-      "featureTitle": "Implement the evasive behavior for the “No/Escape” button so that when the user attempts to click/tap it, the button moves to a new position within the visible container, making it difficult to select.",
+      "featureId": "feature-replace-the-current-initial-page-background-animation-the-floating-heart-emoticons-rendered-by-initialfloatinghearts-with-a-different-background-animation-that-runs-continuously-behind-the-prompt-card-does-not-block-pointer-events-and-does-not-interfere-with-the-evasive-button-interactions",
+      "featureTitle": "Replace the current initial-page background animation (the floating heart emoticons rendered by `InitialFloatingHearts`) with a different background animation that runs continuously behind the prompt card, does not block pointer events, and does not interfere with the evasive button interactions.",
       "files": [
         "frontend/src/App.tsx",
-        "frontend/src/hooks/useEvasiveButton.ts",
+        "frontend/src/components/InitialBackgroundAnimation.tsx",
+        "frontend/src/components/InitialFloatingHearts.tsx",
         "frontend/src/index.css"
       ],
       "components": [
@@ -38,85 +38,6 @@
       ],
       "testIds": [
         "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-when-the-user-clicks-yes-transition-the-ui-into-a-celebration-state-that-shows-fireworks-crackers-and-sparkles-animation-and-displays-a-valentine-s-day-message",
-      "featureTitle": "When the user clicks “Yes”, transition the UI into a celebration state that shows fireworks/crackers and sparkles animation and displays a Valentine’s Day message.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/CelebrationOverlay.tsx",
-        "frontend/src/index.css"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-simple-configuration-mechanism-for-branding-text-so-the-site-name-title-and-the-valentine-s-day-message-can-be-changed-without-rewriting-components-e-g-a-single-constants-config-file-used-by-the-ui",
-      "featureTitle": "Add a simple configuration mechanism for branding text so the site name/title and the Valentine’s Day message can be changed without rewriting components (e.g., a single constants/config file used by the UI).",
-      "files": [
-        "frontend/index.html",
-        "frontend/src/App.tsx",
-        "frontend/src/config/valentineConfig.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-use-a-coherent-creative-visual-theme-appropriate-for-a-valentine-s-day-wish-site-consistent-colors-typography-spacing-and-button-styling-and-apply-it-across-all-ui-states-initial-prompt-evasive-interaction-celebration-state-do-not-use-a-blue-purple-theme",
-      "featureTitle": "Use a coherent, creative visual theme appropriate for a Valentine’s Day wish site (consistent colors, typography, spacing, and button styling) and apply it across all UI states (initial prompt, evasive interaction, celebration state). Do not use a blue/purple theme.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/index.css",
-        "frontend/tailwind.config.js"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-required-static-image-assets-generated-under-frontend-public-assets-generated-and-render-them-in-the-ui-as-part-of-the-visual-design-do-not-serve-images-through-the-backend",
-      "featureTitle": "Add required static image assets (generated) under frontend/public/assets/generated and render them in the UI as part of the visual design (do not serve images through the backend).",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/CelebrationOverlay.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
       ],
       "confidence": "high"
     }

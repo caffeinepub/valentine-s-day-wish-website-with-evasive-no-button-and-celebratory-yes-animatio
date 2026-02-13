@@ -1,9 +1,11 @@
 {
-  "frontend/src/config/valentineConfig.ts": "Central configuration file containing all customizable text strings for the Valentine's Day experience including site name, question, button labels, and celebration messages.",
+  "frontend/src/config/valentineConfig.ts": "Central configuration file containing all customizable text strings for the Valentine's Day experience, with \"love\" replaced by \"kuku\" in the celebration subtext.",
   "frontend/src/hooks/useEvasiveButton.ts": "Custom React hook that calculates safe random positions for the evasive \"No\" button within container bounds, now with proper nullable ref types to match React's RefObject behavior.",
   "frontend/src/components/CelebrationOverlay.tsx": "Celebration overlay component that renders animated fireworks, sparkles, and floating hearts when the user clicks \"Yes\".",
-  "frontend/src/App.tsx": "Main application component managing the Valentine's Day prompt state, evasive button behavior, celebration transition, and rendering both initial and celebration views with footer attribution.",
-  "frontend/src/index.css": "Complete stylesheet with Valentine's Day themed OKLCH color palette (warm pinks/reds/creams), responsive layout styles, button animations, celebration effects, and keyframe animations for fireworks and floating hearts.",
+  "frontend/src/App.tsx": "Main application component managing the Valentine's Day prompt state, evasive button behavior, celebration transition, and rendering both initial (with floating particles background) and celebration views with footer attribution.",
+  "frontend/src/index.css": "Complete stylesheet with Valentine's Day themed OKLCH color palette, responsive layout styles, button animations, celebration effects, new floating particle animation with pointer-events disabled, footer hover pulse effect, and gradient background.",
   "frontend/tailwind.config.js": "Tailwind configuration extended with Valentine's Day color tokens, serif font family for romantic typography, custom shadows, and maintained animation utilities.",
-  "frontend/index.html": "HTML entry point with updated title and meta description for the Valentine's Day wish experience."
+  "frontend/index.html": "HTML entry point with updated title and meta description for the Valentine's Day wish experience.",
+  "frontend/src/components/InitialFloatingHearts.tsx": "New component that renders animated floating heart emoticons as a background layer on the initial page with randomized positions, delays, and durations for a continuous upward floating effect.",
+  "frontend/src/components/InitialBackgroundAnimation.tsx": "New component that renders animated floating particles (gradient circles) as a non-interactive background layer on the initial page with randomized positions, delays, durations, and colors for a continuous dreamy upward floating effect."
 }

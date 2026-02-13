@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { valentineConfig } from './config/valentineConfig';
 import { useEvasiveButton } from './hooks/useEvasiveButton';
 import { CelebrationOverlay } from './components/CelebrationOverlay';
+import { InitialBackgroundAnimation } from './components/InitialBackgroundAnimation';
 import { Heart } from 'lucide-react';
 
 export default function App() {
@@ -58,7 +59,7 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <div className="background-image" />
+      <InitialBackgroundAnimation />
       
       <main className="main-content" ref={containerRef}>
         <div className="prompt-card">

@@ -1,170 +1,57 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Valentine’s Day wish single-page with evasive No button and celebration animation",
+  "title": "Replace initial-page crackers wallpaper and hearts background with a new non-blocking animation",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Build a single-page Valentine’s Day prompt UI with clear “Yes” and “No/Escape” choices, responsive on desktop and mobile.",
+      "summary": "Remove any crackers/wallpaper-style background layer from the initial page and ensure the prompt card sits on the gradient only, with no active rendering reference to the generated valentine background asset.",
       "acceptanceCriteria": [
-        "On initial load, the page shows a Valentine’s Day themed prompt with two clear buttons: “Yes” and “No” (or “Escape”).",
-        "The experience works on both desktop and mobile screen sizes without layout breaking."
+        "On the initial page, there is no crackers/wallpaper background visible behind the prompt card.",
+        "The frontend codebase contains no active reference that renders `/assets/generated/valentine-bg.dim_1920x1080.png` on the initial page."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
-          "operation": "create",
-          "description": "Create the single-page UI: themed prompt, two primary buttons (Yes + No/Escape), responsive layout container, and state handling for initial vs celebration views."
-        },
-        {
           "path": "frontend/src/index.css",
-          "operation": "create",
-          "description": "Create global styles needed for the page layout (full-viewport centering, safe mobile sizing), and baseline Valentine-themed typography defaults (English text only)."
+          "operation": "modify",
+          "description": "Remove/avoid any initial-page fixed wallpaper/background-image layer styling (including any usage of `/assets/generated/valentine-bg.dim_1920x1080.png` if present) so the initial page shows only the existing gradient behind the prompt card."
         },
         {
-          "path": "frontend/index.html",
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Ensure the document title/metadata aligns with the single-page Valentine wish experience (keep language English)."
+          "description": "Ensure the initial (non-celebration) render path does not include any crackers/wallpaper background layer or any usage of the generated background asset; keep the prompt card over the gradient-only app container."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Implement evasive movement for the “No/Escape” button within a visible container for both mouse and touch.",
+      "summary": "Replace the initial-page floating heart emoticon animation (InitialFloatingHearts) with a new continuous background animation behind the prompt card that does not capture pointer events and does not interfere with evasive button interactions.",
       "acceptanceCriteria": [
-        "Attempting to click/tap “No/Escape” causes it to move to a different position within the bounds of the main content area.",
-        "The button never moves off-screen or becomes unreachable due to overflow.",
-        "The evasive behavior works with both mouse and touch interactions."
+        "`InitialFloatingHearts` is no longer rendered on the initial page, and the heart-emoticon background animation is not visible.",
+        "A new background animation is visible on the initial page behind the prompt card and runs continuously.",
+        "The background animation layer uses `pointer-events: none` (or equivalent) so all buttons remain fully interactive on desktop and mobile.",
+        "The new animation stays confined to the initial page (non-celebration state) and does not alter the celebration overlay behavior."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useEvasiveButton.ts",
+          "path": "frontend/src/components/InitialBackgroundAnimation.tsx",
           "operation": "create",
-          "description": "Add a reusable hook that computes a new in-bounds position for the No/Escape button based on container/button measurements and triggers movement on pointer/touch interactions."
+          "description": "Create a new initial-page-only background animation component that renders behind the prompt card, runs continuously, and is non-interactive (ensure the animation layer cannot block clicks/taps)."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wire the evasive behavior into the No/Escape button using the container/button refs and pointer/touch handlers; ensure the button stays within visible bounds and remains reachable."
+          "description": "Stop rendering `InitialFloatingHearts` on the initial page and render the new `InitialBackgroundAnimation` only in the non-celebration state; keep celebration behavior unchanged."
         },
         {
           "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Add any required positioning utilities (e.g., relative container + absolutely positioned evasive button) and overflow-safe rules so the evasive button cannot be clipped or move off-screen."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "On “Yes”, transition to a final celebration state with fireworks/crackers + sparkles animation and a Valentine message, preventing repeated triggers.",
-      "acceptanceCriteria": [
-        "Clicking “Yes” triggers a visible celebratory animation effect (fireworks/crackers + sparkles) lasting at least ~2 seconds.",
-        "After clicking “Yes”, a Valentine’s Day message is shown prominently on the page.",
-        "The “Yes” action cannot be accidentally re-triggered repeatedly; the UI should either disable the buttons or switch to a final state."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Implement the “Yes” click transition into a final celebration state; disable/hide interaction controls after activation; render the final Valentine’s message prominently."
+          "description": "Add/adjust CSS for the new initial-page background animation (including continuous keyframes, correct stacking under the prompt card, and `pointer-events: none`) and remove/disable styling that supported the previous `InitialFloatingHearts` animation so it is no longer visible."
         },
         {
-          "path": "frontend/src/components/CelebrationOverlay.tsx",
-          "operation": "create",
-          "description": "Create a celebration overlay component that renders the fireworks/crackers and sparkles visuals and controls an animation duration of ~2+ seconds (then remains in a final composed state)."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add CSS keyframes/classes to animate the fireworks/crackers burst and sparkles overlay (ensure the visible effect lasts ~2 seconds minimum and works across screen sizes)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Add a centralized configuration file for branding/site title and final Valentine’s message text.",
-      "acceptanceCriteria": [
-        "There is one central place to change the displayed site name/title.",
-        "There is one central place to change the final Valentine’s Day message text.",
-        "Changing those values updates the UI on refresh without further code changes."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/config/valentineConfig.ts",
-          "operation": "create",
-          "description": "Create a single source of truth for branding text (site name/title) and the final Valentine’s Day message used by the UI."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Read and display the site name/title and final Valentine’s Day message from frontend/src/config/valentineConfig.ts (no hard-coded duplicates)."
-        },
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Align the static document <title> with the configurable site name (where feasible without changing immutable entry files)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Apply a cohesive Valentine’s Day visual theme across prompt, evasive interaction, and celebration states; avoid blue/purple dominance.",
-      "acceptanceCriteria": [
-        "The UI has a consistent Valentine’s Day aesthetic (e.g., warm/pink/red/cream palette, romantic typography choices, cohesive layout).",
-        "The same theme is maintained across initial and post-“Yes” celebration states.",
-        "No primary theme relies on blue/purple as the dominant palette."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Define theme CSS variables and global styles for a warm/pink/red/cream palette, consistent typography, spacing, and button styling; ensure it applies across both initial and celebration states (avoid blue/purple as dominant colors)."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Apply the theme consistently in both UI states (prompt + celebration), including button variants, spacing, and readable contrast on top of the background illustration."
-        },
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Extend Tailwind theme tokens (via CSS variable mapping) to support the Valentine palette and consistent component styling while avoiding blue/purple as dominant theme colors."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Add required generated static images under frontend/public/assets/generated and render them in the UI (no backend usage).",
-      "acceptanceCriteria": [
-        "All required images listed in imageRequirements.required exist in frontend/public/assets/generated.",
-        "The UI references these images as static assets and they display correctly in the browser.",
-        "No backend code is used to fetch/serve these images."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/valentine-bg.dim_1920x1080.png",
-          "operation": "create",
-          "description": "Add the generated romantic heart-themed background illustration as a static asset at frontend/public/assets/generated/valentine-bg.dim_1920x1080.png."
-        },
-        {
-          "path": "frontend/public/assets/generated/fireworks-burst.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add the generated fireworks/crackers burst illustration as a static asset at frontend/public/assets/generated/fireworks-burst.dim_1024x1024.png."
-        },
-        {
-          "path": "frontend/public/assets/generated/sparkles-overlay.dim_1024x1024.png",
-          "operation": "create",
-          "description": "Add the generated sparkles particle overlay illustration as a static asset at frontend/public/assets/generated/sparkles-overlay.dim_1024x1024.png."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Render frontend/public/assets/generated/valentine-bg.dim_1920x1080.png as part of the page visual design, and wire the celebration UI to display the fireworks and sparkles assets via the CelebrationOverlay (no backend fetching)."
-        },
-        {
-          "path": "frontend/src/components/CelebrationOverlay.tsx",
-          "operation": "modify",
-          "description": "Reference and render frontend/public/assets/generated/fireworks-burst.dim_1024x1024.png and frontend/public/assets/generated/sparkles-overlay.dim_1024x1024.png as layered visuals used by the celebration animation (static assets only)."
+          "path": "frontend/src/components/InitialFloatingHearts.tsx",
+          "operation": "delete",
+          "description": "Remove the old heart-emoticon initial background component so it cannot be rendered going forward."
         }
       ]
     }
