@@ -1,24 +1,84 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T09:43:01.353Z",
+  "generatedAt": "2026-02-13T12:33:22.655Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 5,
+    "implemented": 5,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Remove the background from the post-Yes (celebration) screen so that after clicking the \"Yes\" button the celebration/section page does not show the app background/gradient.",
+        "summary": "Update the Valentine landing page to present a clear Valentine’s Day wish prompt with two options: a “Yes” button and a “No” button, replacing the current single CTA button in the hero section.",
         "status": "implemented",
         "plannedFiles": [
+          "frontend/src/features/valentine/ValentinePage.tsx",
           "frontend/src/index.css"
         ],
         "matchedFiles": [
+          "frontend/src/features/valentine/ValentinePage.tsx",
           "frontend/src/index.css"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Implement an evasive/escaping behavior for the “No” button so that when the user tries to click it (hover/tap attempt), it moves away repeatedly and remains difficult to click, encouraging the user to click “Yes”. Use the existing placeholder hook file `frontend/src/hooks/useEvasiveButton.ts` to encapsulate the behavior.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useEvasiveButton.ts",
+          "frontend/src/features/valentine/ValentinePage.tsx",
+          "frontend/src/index.css"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useEvasiveButton.ts",
+          "frontend/src/features/valentine/ValentinePage.tsx",
+          "frontend/src/index.css"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "On “Yes” click, show a celebratory overlay that includes a crackers/confetti-style burst plus sparkles/light effects in the background, and then reveal a sweet acceptance message. Implement the celebration visuals in `frontend/src/components/CelebrationOverlay.tsx` (currently empty) and wire it into `frontend/src/features/valentine/ValentinePage.tsx`.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/CelebrationOverlay.tsx",
+          "frontend/src/features/valentine/ValentinePage.tsx",
+          "frontend/src/index.css"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/CelebrationOverlay.tsx",
+          "frontend/src/features/valentine/ValentinePage.tsx",
+          "frontend/src/index.css"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Add a photo section to the Valentine page that displays “some photos” (a small gallery/grid or polaroid-style cards) below the main interaction, using static frontend assets (do not load photos from the backend).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/features/valentine/ValentinePage.tsx",
+          "frontend/src/config/valentineConfig.ts",
+          "frontend/src/index.css"
+        ],
+        "matchedFiles": [
+          "frontend/src/features/valentine/ValentinePage.tsx",
+          "frontend/src/config/valentineConfig.ts",
+          "frontend/src/index.css"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Move all new user-facing copy for the Valentine wish flow (question text, Yes/No labels if customized, sweet acceptance message, and any helper text) into `frontend/src/config/valentineConfig.ts`, and ensure the Valentine page renders those strings from the config in English.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/config/valentineConfig.ts",
+          "frontend/src/features/valentine/ValentinePage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/config/valentineConfig.ts",
+          "frontend/src/features/valentine/ValentinePage.tsx"
         ]
       }
     ]
@@ -28,6 +88,14 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/public/assets/generated/valentine-bokeh-sparkles-overlay.dim_1920x1080.png",
+    "frontend/public/assets/generated/valentine-photo-1.dim_1200x800.png",
+    "frontend/public/assets/generated/valentine-photo-2.dim_1200x800.png",
+    "frontend/public/assets/generated/valentine-photo-3.dim_1200x800.png",
+    "frontend/src/components/CelebrationOverlay.tsx",
+    "frontend/src/config/valentineConfig.ts",
+    "frontend/src/features/valentine/ValentinePage.tsx",
+    "frontend/src/hooks/useEvasiveButton.ts",
     "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",

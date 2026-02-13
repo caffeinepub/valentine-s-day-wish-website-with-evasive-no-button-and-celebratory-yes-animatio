@@ -1,37 +1,115 @@
 {
   "kind": "build_request",
-  "title": "Remove background on celebration (post-Yes) screen",
+  "title": "Valentine wish page with evasive No button, Yes celebration overlay, sweet message, and photo section",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Remove the background from the post-Yes (celebration) screen so that after clicking the \"Yes\" button the celebration/section page does not show the app background/gradient.",
+      "text": "Update the Valentine landing page to present a clear Valentine’s Day wish prompt with two options: a “Yes” button and a “No” button, replacing the current single CTA button in the hero section.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-4"
         ],
         "quotes": [
-          "still that background coming on secton page after clicking yes button but i just want to remove that bg from there"
+          "make a valentine day wish page where should be message and button should be there for option yes and No"
         ]
       },
       "acceptanceCriteria": [
-        "Given the user clicks the Yes button and the celebration screen is shown, the page background behind the celebration content is not the app gradient background.",
-        "The initial floating-particles background is not visible on the celebration screen.",
-        "No background styling regressions occur on the initial (pre-Yes) screen: it still displays the current background/animation as before."
+        "The hero section shows a primary Valentine wish question/message and exactly two visible actions labeled “Yes” and “No”.",
+        "The previous single hero CTA (“Explore Memories”) is no longer the primary interaction shown in the hero section."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement an evasive/escaping behavior for the “No” button so that when the user tries to click it (hover/tap attempt), it moves away repeatedly and remains difficult to click, encouraging the user to click “Yes”. Use the existing placeholder hook file `frontend/src/hooks/useEvasiveButton.ts` to encapsulate the behavior.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "when you want to click no it should be escape again and again then you have to click yes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "On desktop, when the pointer approaches/hover-starts on the “No” button, the button relocates to a different position within a defined container without leaving the viewport.",
+        "On touch devices, the first tap attempt on “No” causes it to move (i.e., it should not be trivially clickable).",
+        "The “No” button movement is constrained so it never overlaps the “Yes” button and never becomes permanently unreachable.",
+        "When `prefers-reduced-motion: reduce` is enabled, the “No” button does not animate evasively; instead it remains stable (or uses a minimal, non-animated fallback)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "On “Yes” click, show a celebratory overlay that includes a crackers/confetti-style burst plus sparkles/light effects in the background, and then reveal a sweet acceptance message. Implement the celebration visuals in `frontend/src/components/CelebrationOverlay.tsx` (currently empty) and wire it into `frontend/src/features/valentine/ValentinePage.tsx`.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "once clicked it displaying crakers animation sparkles light in the background and there should be some sweet meassage"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking “Yes” triggers an on-screen celebration layer (confetti/crackers burst + sparkles/lights effect) that is visibly distinct from the existing floating hearts/background particles.",
+        "After clicking “Yes”, a sweet message is displayed prominently in the page content (English).",
+        "The celebration overlay can be dismissed automatically after a short duration or via an explicit close action, and it does not block scrolling/interaction indefinitely.",
+        "When `prefers-reduced-motion: reduce` is enabled, the celebration uses a reduced-motion alternative (e.g., static sparkles/glow + message without heavy motion)."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add a photo section to the Valentine page that displays “some photos” (a small gallery/grid or polaroid-style cards) below the main interaction, using static frontend assets (do not load photos from the backend).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "and some photos"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The page includes a dedicated photo area showing at least 3 images.",
+        "Images are loaded from `frontend/public/assets/generated` (or other frontend static public path) and rendered directly by the frontend.",
+        "The photo layout is responsive (1 column on small screens, multi-column on larger screens) and visually consistent with the Valentine theme."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Move all new user-facing copy for the Valentine wish flow (question text, Yes/No labels if customized, sweet acceptance message, and any helper text) into `frontend/src/config/valentineConfig.ts`, and ensure the Valentine page renders those strings from the config in English.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Use English for any user-facing text in the build request."
+        ]
+      },
+      "acceptanceCriteria": [
+        "All newly introduced Valentine wish text is sourced from `valentineConfig` (not hardcoded in the component).",
+        "All displayed copy for this flow is English."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (read-only).",
-    "Do not edit immutable hook bootstrap/auth files listed in SYSTEM_CONTEXT immutablePaths."
+    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, `frontend/src/components/ui/*`.",
+    "Do not serve images via the backend; render static images from the frontend public assets directory."
   ],
   "nonGoals": [
-    "Do not change the celebration overlay animations (fireworks/sparkles/hearts), except as needed to ensure they are not mistaken for the removed background.",
-    "Do not add new pages or routing; only adjust existing post-Yes view styling."
+    "Implementing Internet Identity login/profile/memories backend flows (not required for this Valentine wish interaction).",
+    "Adding real-time features (websockets/chat/notifications).",
+    "Using external image hosting or third-party APIs for photos/animations."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Romantic photo-style illustration 1, warm Valentine color grading (valentine-photo-1.dim_1200x800.png)",
+      "Romantic photo-style illustration 2, warm Valentine color grading (valentine-photo-2.dim_1200x800.png)",
+      "Romantic photo-style illustration 3, warm Valentine color grading (valentine-photo-3.dim_1200x800.png)",
+      "Soft bokeh light overlay with sparkles, transparent background (valentine-bokeh-sparkles-overlay.dim_1920x1080.png)"
+    ],
     "edits": []
   },
   "userProfileUpdate": {

@@ -5,53 +5,52 @@
 @layer base {
     :root {
         --radius: 1rem;
-        /* Valentine's Day warm palette - pinks, reds, creams */
-        --background: 0.98 0.02 15;
-        --foreground: 0.25 0.08 15;
-        --card: 1 0.015 15;
-        --card-foreground: 0.25 0.08 15;
-        --popover: 1 0.015 15;
-        --popover-foreground: 0.25 0.08 15;
-        --primary: 0.65 0.22 15;
-        --primary-foreground: 1 0.01 15;
-        --secondary: 0.92 0.04 25;
-        --secondary-foreground: 0.35 0.08 15;
-        --muted: 0.95 0.02 20;
-        --muted-foreground: 0.55 0.05 15;
-        --accent: 0.88 0.15 355;
-        --accent-foreground: 0.25 0.08 15;
-        --destructive: 0.55 0.25 15;
-        --destructive-foreground: 1 0.01 15;
-        --border: 0.90 0.03 20;
-        --input: 0.90 0.03 20;
-        --ring: 0.65 0.22 15;
-        --chart-1: 0.65 0.22 15;
-        --chart-2: 0.75 0.18 355;
-        --chart-3: 0.85 0.12 25;
-        --chart-4: 0.70 0.20 5;
-        --chart-5: 0.80 0.15 345;
+        /* Valentine theme - soft pink/rose palette with warm accents */
+        --background: 0.98 0.02 340;
+        --foreground: 0.25 0.04 350;
+        --card: 1.0 0.01 340;
+        --card-foreground: 0.25 0.04 350;
+        --popover: 1.0 0.01 340;
+        --popover-foreground: 0.25 0.04 350;
+        --primary: 0.65 0.20 350;
+        --primary-foreground: 1.0 0.01 340;
+        --secondary: 0.88 0.08 340;
+        --secondary-foreground: 0.35 0.04 350;
+        --muted: 0.92 0.04 340;
+        --muted-foreground: 0.55 0.03 350;
+        --accent: 0.70 0.18 10;
+        --accent-foreground: 1.0 0.01 340;
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0.01 60;
+        --border: 0.88 0.06 340;
+        --input: 0.88 0.06 340;
+        --ring: 0.65 0.20 350;
+        --valentine-glow: 0.75 0.15 350;
+        --valentine-accent: 0.60 0.25 0;
     }
 
     .dark {
-        --background: 0.15 0.05 15;
-        --foreground: 0.98 0.02 15;
-        --card: 0.20 0.06 15;
-        --card-foreground: 0.98 0.02 15;
-        --popover: 0.18 0.06 15;
-        --popover-foreground: 0.98 0.02 15;
-        --primary: 0.75 0.20 355;
-        --primary-foreground: 0.15 0.05 15;
-        --secondary: 0.25 0.07 15;
-        --secondary-foreground: 0.98 0.02 15;
-        --muted: 0.25 0.06 15;
-        --muted-foreground: 0.70 0.08 15;
-        --accent: 0.35 0.10 355;
-        --accent-foreground: 0.98 0.02 15;
-        --destructive: 0.60 0.22 15;
-        --destructive-foreground: 0.98 0.02 15;
-        --border: 0.30 0.06 15;
-        --input: 0.30 0.06 15;
-        --ring: 0.75 0.20 355;
+        --background: 0.20 0.04 340;
+        --foreground: 0.95 0.02 340;
+        --card: 0.25 0.04 340;
+        --card-foreground: 0.95 0.02 340;
+        --popover: 0.25 0.04 340;
+        --popover-foreground: 0.95 0.02 340;
+        --primary: 0.70 0.18 350;
+        --primary-foreground: 0.98 0.01 340;
+        --secondary: 0.35 0.06 340;
+        --secondary-foreground: 0.90 0.02 340;
+        --muted: 0.30 0.04 340;
+        --muted-foreground: 0.65 0.03 340;
+        --accent: 0.65 0.20 10;
+        --accent-foreground: 0.98 0.01 340;
+        --destructive: 0.55 0.22 25;
+        --destructive-foreground: 0.98 0.01 60;
+        --border: 0.35 0.06 340;
+        --input: 0.35 0.06 340;
+        --ring: 0.70 0.18 350;
+        --valentine-glow: 0.70 0.18 350;
+        --valentine-accent: 0.65 0.22 10;
     }
 
     * {
@@ -63,25 +62,591 @@
         margin: 0;
         padding: 0;
         overflow-x: hidden;
+        font-family: 'Georgia', 'Palatino', 'Times New Roman', serif;
     }
 }
 
-/* App Container */
-.app-container {
+/* Valentine Page Styles */
+.valentine-page-container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(135deg, 
+    oklch(0.98 0.02 340) 0%, 
+    oklch(0.95 0.04 350) 50%,
+    oklch(0.97 0.03 10) 100%
+  );
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, 
-    oklch(0.98 0.03 15) 0%, 
-    oklch(0.96 0.05 355) 50%, 
-    oklch(0.94 0.06 345) 100%
-  );
 }
 
-/* Initial Background Animation - Floating Particles */
-.initial-background-animation {
+.valentine-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  position: relative;
+  z-index: 2;
+  gap: 4rem;
+}
+
+/* Hero Section */
+.valentine-hero {
+  text-align: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+.valentine-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.valentine-cupid-icon {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 4px 20px oklch(var(--valentine-glow) / 0.4));
+  animation: valentineFloat 3s ease-in-out infinite;
+}
+
+.valentine-cupid-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes valentineFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+}
+
+.valentine-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: oklch(var(--primary));
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 20px oklch(var(--valentine-glow) / 0.3);
+  margin: 0;
+}
+
+.valentine-wish-title {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.valentine-subtitle {
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: oklch(var(--accent));
+  font-style: italic;
+  margin: 0;
+}
+
+.valentine-acceptance-message {
+  font-size: 2rem;
+  color: oklch(var(--primary));
+  animation: valentinePulse 2s ease-in-out infinite;
+}
+
+@keyframes valentinePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.valentine-description {
+  font-size: 1.25rem;
+  color: oklch(var(--muted-foreground));
+  max-width: 600px;
+  line-height: 1.6;
+  margin: 0.5rem 0 1.5rem;
+}
+
+/* Wish Actions */
+.valentine-wish-actions {
+  position: relative;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 2rem;
+}
+
+.valentine-yes-button {
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1.5rem 3rem;
+  background: oklch(var(--primary));
+  color: oklch(var(--primary-foreground));
+  border-radius: 2rem;
+  box-shadow: 
+    0 4px 20px oklch(var(--valentine-glow) / 0.4),
+    0 8px 40px oklch(var(--valentine-glow) / 0.2);
+  transition: all 0.3s ease;
+  border: none;
+  z-index: 2;
+}
+
+.valentine-yes-button:hover {
+  background: oklch(var(--accent));
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 6px 30px oklch(var(--valentine-accent) / 0.5),
+    0 12px 50px oklch(var(--valentine-accent) / 0.3);
+}
+
+.valentine-yes-button:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+.valentine-no-button {
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 1.25rem 2.5rem;
+  border-radius: 2rem;
+  border: 2px solid oklch(var(--border));
+  background: oklch(var(--card));
+  color: oklch(var(--foreground));
+  transition: all 0.3s ease;
+  cursor: pointer;
+  z-index: 1;
+  min-width: 120px;
+}
+
+.valentine-no-button:hover {
+  border-color: oklch(var(--primary));
+  background: oklch(var(--secondary));
+}
+
+.valentine-no-button:focus-visible {
+  outline: 2px solid oklch(var(--ring));
+  outline-offset: 4px;
+}
+
+/* Photos Section */
+.valentine-photos-section {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.valentine-photos-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: oklch(var(--primary));
+  text-align: center;
+  margin-bottom: 3rem;
+  text-shadow: 0 2px 15px oklch(var(--valentine-glow) / 0.3);
+}
+
+.valentine-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.valentine-photo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.valentine-photo-frame {
+  width: 100%;
+  aspect-ratio: 3/2;
+  background: oklch(var(--card));
+  border: 8px solid oklch(var(--card));
+  border-radius: 0.5rem;
+  box-shadow: 
+    0 4px 20px oklch(var(--valentine-glow) / 0.2),
+    0 8px 40px oklch(var(--valentine-glow) / 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.valentine-photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    oklch(var(--valentine-glow) / 0.1) 0%, 
+    transparent 50%
+  );
+  pointer-events: none;
+}
+
+.valentine-photo-frame:hover {
+  transform: translateY(-8px) rotate(-2deg);
+  box-shadow: 
+    0 8px 30px oklch(var(--valentine-glow) / 0.3),
+    0 12px 50px oklch(var(--valentine-glow) / 0.2);
+}
+
+.valentine-photo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.valentine-photo-caption {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: oklch(var(--primary));
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+}
+
+/* Features Section */
+.valentine-features-section {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.valentine-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.valentine-feature-card {
+  background: oklch(var(--card) / 0.8);
+  backdrop-filter: blur(10px);
+  border: 2px solid oklch(var(--border));
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 20px oklch(var(--valentine-glow) / 0.15);
+  transition: all 0.3s ease;
+}
+
+.valentine-feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px oklch(var(--valentine-glow) / 0.3);
+  border-color: oklch(var(--primary));
+}
+
+.valentine-feature-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, 
+    oklch(var(--primary) / 0.2), 
+    oklch(var(--accent) / 0.2)
+  );
+  border-radius: 1rem;
+  color: oklch(var(--primary));
+  margin-bottom: 1rem;
+}
+
+.valentine-feature-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: oklch(var(--foreground));
+  margin-bottom: 0.5rem;
+}
+
+.valentine-feature-description {
+  font-size: 1rem;
+  color: oklch(var(--muted-foreground));
+  line-height: 1.6;
+}
+
+/* Celebration Overlay */
+.celebration-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.celebration-overlay-visible {
+  opacity: 1;
+}
+
+.celebration-backdrop {
+  position: absolute;
+  inset: 0;
+  background: oklch(0.1 0.02 340 / 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.celebration-sparkles-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.6;
+  animation: celebrationSparklesPulse 3s ease-in-out infinite;
+}
+
+@keyframes celebrationSparklesPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.celebration-sparkles-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.celebration-confetti-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.celebration-confetti {
+  position: absolute;
+  top: -10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: celebrationConfettiFall linear forwards;
+}
+
+@keyframes celebrationConfettiFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.celebration-content {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+  width: 90%;
+  background: oklch(var(--card));
+  border: 3px solid oklch(var(--primary));
+  border-radius: 2rem;
+  padding: 3rem 2rem;
+  box-shadow: 
+    0 8px 40px oklch(var(--valentine-glow) / 0.5),
+    0 16px 80px oklch(var(--valentine-glow) / 0.3);
+  animation: celebrationContentEnter 0.5s ease-out;
+}
+
+@keyframes celebrationContentEnter {
+  0% {
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.celebration-close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  background: oklch(var(--muted));
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.celebration-close-button:hover {
+  background: oklch(var(--primary));
+  color: oklch(var(--primary-foreground));
+  transform: scale(1.1);
+}
+
+.celebration-message {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.celebration-sparkle-icon {
+  width: 60px;
+  height: 60px;
+  color: oklch(var(--accent));
+  animation: celebrationSparkleRotate 2s ease-in-out infinite;
+}
+
+@keyframes celebrationSparkleRotate {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+}
+
+.celebration-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: oklch(var(--primary));
+  margin: 0;
+  line-height: 1.2;
+}
+
+.celebration-subtitle {
+  font-size: 1.25rem;
+  color: oklch(var(--muted-foreground));
+  margin: 0;
+  line-height: 1.6;
+}
+
+.celebration-hearts-float {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.celebration-heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 2rem;
+  opacity: 0.8;
+  animation: celebrationHeartFloat linear infinite;
+}
+
+@keyframes celebrationHeartFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-600px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Reduced Motion for Celebration */
+.celebration-reduced-motion .celebration-confetti,
+.celebration-reduced-motion .celebration-heart {
+  animation: none;
+  opacity: 0;
+}
+
+.celebration-reduced-motion .celebration-sparkles-bg {
+  animation: none;
+  opacity: 0.8;
+}
+
+.celebration-reduced-motion .celebration-sparkle-icon {
+  animation: none;
+}
+
+.celebration-reduced-motion .celebration-content {
+  animation: none;
+}
+
+/* Decorative Hearts */
+.valentine-decorative-hearts {
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  width: 200px;
+  height: 200px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 1;
+  animation: valentineRotate 20s linear infinite;
+}
+
+.valentine-hearts-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes valentineRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Floating Hearts Animation */
+.valentine-floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.valentine-heart {
+  position: absolute;
+  bottom: -50px;
+  font-size: 2rem;
+  opacity: 0.6;
+  animation: valentineHeartFloat linear infinite;
+}
+
+@keyframes valentineHeartFloat {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(50px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Background Animation */
+.valentine-background-animation {
   position: fixed;
   top: 0;
   left: 0;
@@ -92,254 +657,67 @@
   overflow: hidden;
 }
 
-.floating-particle {
+.valentine-particle {
   position: absolute;
-  bottom: -10%;
+  bottom: -100px;
   border-radius: 50%;
-  opacity: 0;
-  animation: floatParticle 10s ease-in-out infinite;
-  filter: blur(2px);
-  pointer-events: none;
+  opacity: 0.4;
+  animation: valentineParticleFloat linear infinite;
+  filter: blur(40px);
 }
 
-@keyframes floatParticle {
+@keyframes valentineParticleFloat {
   0% {
+    transform: translateY(0) translateX(0);
     opacity: 0;
-    transform: translateY(0) translateX(0) scale(0.5);
   }
   10% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-    transform: translateY(-50vh) translateX(20px) scale(1);
+    opacity: 0.4;
   }
   90% {
     opacity: 0.4;
   }
   100% {
+    transform: translateY(-110vh) translateX(-30px);
     opacity: 0;
-    transform: translateY(-110vh) translateX(-20px) scale(0.8);
   }
 }
 
-/* Main Content */
-.main-content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  position: relative;
-  z-index: 1;
-  min-height: 80vh;
-}
-
-/* Prompt Card */
-.prompt-card {
-  background: oklch(var(--card) / 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 2rem;
-  padding: 3rem 2rem;
-  box-shadow: 0 20px 60px oklch(var(--primary) / 0.15);
-  max-width: 500px;
-  width: 100%;
-  text-align: center;
-  border: 2px solid oklch(var(--border));
-}
-
-.prompt-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: oklch(var(--primary));
-  margin-bottom: 3rem;
-  line-height: 1.2;
-  font-family: 'Georgia', serif;
-}
-
-/* Buttons Container */
-.buttons-container {
-  position: relative;
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-/* Yes Button */
-.yes-button {
-  background: oklch(var(--primary));
-  color: oklch(var(--primary-foreground));
-  font-size: 1.5rem;
-  font-weight: 600;
-  padding: 1rem 3rem;
-  border-radius: 9999px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 20px oklch(var(--primary) / 0.3);
-  z-index: 2;
-}
-
-.yes-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 12px 30px oklch(var(--primary) / 0.4);
-}
-
-.yes-button:active {
-  transform: scale(1.05);
-}
-
-/* No Button - Evasive */
-.no-button {
-  position: absolute;
-  background: oklch(var(--muted));
-  color: oklch(var(--muted-foreground));
-  font-size: 1.125rem;
-  font-weight: 500;
-  padding: 0.75rem 2rem;
-  border-radius: 9999px;
-  border: 2px solid oklch(var(--border));
-  cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 1;
-  top: 80px;
-  left: 50%;
-  margin-left: -4rem;
-}
-
-.no-button:hover {
-  background: oklch(var(--muted));
-}
-
-/* Celebration State */
-.app-container.celebrated {
-  background: oklch(var(--background));
-}
-
-.celebration-content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  position: relative;
-  z-index: 10;
-}
-
-.celebration-message {
-  text-align: center;
-  animation: fadeInScale 0.8s ease-out;
-}
-
-.celebration-title {
-  font-size: 3rem;
-  font-weight: 800;
-  color: oklch(var(--primary));
-  margin-bottom: 1rem;
-  line-height: 1.2;
-  font-family: 'Georgia', serif;
-  text-shadow: 2px 2px 4px oklch(var(--background) / 0.3);
-}
-
-.celebration-subtext {
-  font-size: 1.5rem;
-  color: oklch(var(--foreground));
-  margin-bottom: 2rem;
-  font-weight: 500;
-}
-
-.heart-icon-large {
-  color: oklch(var(--primary));
-  animation: heartBeat 1.5s ease-in-out infinite;
-  display: inline-block;
-}
-
-/* Celebration Overlay */
-.celebration-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
-  overflow: hidden;
-}
-
-.fireworks {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  max-width: 800px;
+/* Section Transition */
+.section-transition {
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.fireworks.animate {
-  animation: fireworksBurst 2.5s ease-out forwards;
-}
-
-.fireworks-image {
-  width: 100%;
-  height: auto;
-  filter: brightness(1.2);
-}
-
-.sparkles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.sparkles.animate {
-  animation: sparklesFade 3s ease-in-out forwards;
-}
-
-.sparkles-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  mix-blend-mode: screen;
-}
-
-/* Floating Hearts */
-.floating-hearts {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.heart {
-  position: absolute;
-  font-size: 2rem;
-  animation: floatUp 5s ease-in infinite;
-  opacity: 0;
+.section-transition-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Footer */
-.app-footer {
-  padding: 1.5rem;
+.valentine-footer {
+  padding: 2rem 1.5rem;
   text-align: center;
   color: oklch(var(--muted-foreground));
-  font-size: 0.875rem;
-  position: relative;
-  z-index: 1;
-  background: oklch(var(--background) / 0.8);
+  font-size: 0.9375rem;
+  background: oklch(var(--card) / 0.6);
   backdrop-filter: blur(10px);
+  border-top: 2px solid oklch(var(--border));
+  position: relative;
+  z-index: 2;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-.footer-link {
+.valentine-footer-message {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: oklch(var(--primary));
+  margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.valentine-footer-link {
   color: oklch(var(--primary));
   text-decoration: none;
   font-weight: 600;
@@ -347,160 +725,371 @@
   display: inline-block;
 }
 
-.footer-link:hover {
-  color: oklch(var(--primary) / 0.8);
+.valentine-footer-link:hover {
+  color: oklch(var(--accent));
   text-decoration: underline;
-  animation: gentlePulse 1s ease-in-out infinite;
+  transform: scale(1.05);
 }
 
-.footer-link:focus-visible {
+.valentine-footer-link:focus-visible {
   outline: 2px solid oklch(var(--ring));
   outline-offset: 4px;
   border-radius: 4px;
 }
 
-.footer-year {
+.valentine-footer-year {
   margin-top: 0.5rem;
-  font-size: 0.75rem;
-}
-
-/* Animations */
-@keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes heartBeat {
-  0%, 100% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(1.1);
-  }
-  50% {
-    transform: scale(1);
-  }
-  75% {
-    transform: scale(1.15);
-  }
-}
-
-@keyframes fireworksBurst {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
-  }
-  20% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  80% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.5);
-  }
-}
-
-@keyframes sparklesFade {
-  0% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.8;
-  }
-  80% {
-    opacity: 0.6;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes floatUp {
-  0% {
-    opacity: 0;
-    transform: translateY(100vh) rotate(0deg);
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-100vh) rotate(360deg);
-  }
-}
-
-@keyframes gentlePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
+  font-size: 0.8125rem;
+  opacity: 0.8;
 }
 
 /* Responsive Design */
-@media (max-width: 640px) {
-  .prompt-card {
-    padding: 2rem 1.5rem;
-    border-radius: 1.5rem;
+@media (max-width: 768px) {
+  .valentine-title {
+    font-size: 2.5rem;
   }
 
-  .prompt-title {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .yes-button {
-    font-size: 1.25rem;
-    padding: 0.875rem 2.5rem;
-  }
-
-  .no-button {
-    font-size: 1rem;
-    padding: 0.625rem 1.75rem;
-  }
-
-  .celebration-title {
+  .valentine-wish-title {
     font-size: 2rem;
   }
 
-  .celebration-subtext {
+  .valentine-subtitle {
     font-size: 1.25rem;
   }
 
-  .heart-icon-large svg {
-    width: 4rem;
-    height: 4rem;
-  }
-
-  .buttons-container {
-    min-height: 180px;
-  }
-}
-
-@media (max-width: 400px) {
-  .prompt-title {
-    font-size: 1.75rem;
-  }
-
-  .celebration-title {
+  .valentine-acceptance-message {
     font-size: 1.5rem;
   }
 
-  .celebration-subtext {
+  .valentine-description {
+    font-size: 1rem;
+  }
+
+  .valentine-cupid-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .valentine-wish-actions {
+    flex-direction: column;
+    gap: 1.5rem;
+    min-height: 250px;
+  }
+
+  .valentine-yes-button {
+    font-size: 1.125rem;
+    padding: 1.25rem 2.5rem;
+  }
+
+  .valentine-no-button {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  .valentine-photos-title {
+    font-size: 2rem;
+  }
+
+  .valentine-photos-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .valentine-features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .valentine-decorative-hearts {
+    width: 150px;
+    height: 150px;
+    bottom: 5%;
+    right: 2%;
+  }
+
+  .valentine-content-wrapper {
+    padding: 2rem 1rem;
+    gap: 3rem;
+  }
+
+  .celebration-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .celebration-title {
+    font-size: 2rem;
+  }
+
+  .celebration-subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .valentine-title {
+    font-size: 2rem;
+  }
+
+  .valentine-wish-title {
+    font-size: 1.75rem;
+  }
+
+  .valentine-subtitle {
     font-size: 1.125rem;
   }
+
+  .valentine-acceptance-message {
+    font-size: 1.25rem;
+  }
+
+  .valentine-description {
+    font-size: 0.9375rem;
+  }
+
+  .valentine-cupid-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .valentine-yes-button {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+
+  .valentine-no-button {
+    font-size: 0.9375rem;
+    padding: 0.875rem 1.75rem;
+  }
+
+  .valentine-photos-title {
+    font-size: 1.75rem;
+  }
+
+  .valentine-heart {
+    font-size: 1.5rem;
+  }
+
+  .valentine-decorative-hearts {
+    width: 120px;
+    height: 120px;
+  }
+
+  .celebration-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .celebration-title {
+    font-size: 1.75rem;
+  }
+
+  .celebration-subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .celebration-sparkle-icon {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .valentine-cupid-icon,
+  .valentine-heart,
+  .valentine-particle,
+  .valentine-decorative-hearts,
+  .valentine-acceptance-message {
+    animation: none;
+  }
+
+  .section-transition {
+    opacity: 1;
+    transform: none;
+  }
+
+  .valentine-no-button {
+    position: static !important;
+  }
+}
+
+/* Warning Page Styles (deprecated, kept for reference) */
+.warning-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.warning-page-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 200, 0, 0.03) 10px,
+      rgba(255, 200, 0, 0.03) 20px
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.warning-content-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.warning-card {
+  max-width: 700px;
+  width: 100%;
+  background: oklch(var(--card) / 0.95);
+  border: 3px solid oklch(var(--primary));
+  box-shadow: 
+    0 0 30px oklch(var(--primary) / 0.3),
+    0 0 60px oklch(var(--primary) / 0.2),
+    inset 0 0 20px oklch(var(--primary) / 0.1);
+  animation: warningPulse 3s ease-in-out infinite;
+}
+
+@keyframes warningPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 30px oklch(var(--primary) / 0.3),
+      0 0 60px oklch(var(--primary) / 0.2),
+      inset 0 0 20px oklch(var(--primary) / 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px oklch(var(--primary) / 0.4),
+      0 0 80px oklch(var(--primary) / 0.3),
+      inset 0 0 30px oklch(var(--primary) / 0.15);
+  }
+}
+
+.warning-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.warning-icon {
+  width: 80px;
+  height: 80px;
+  color: oklch(var(--primary));
+  filter: drop-shadow(0 0 10px oklch(var(--primary) / 0.5));
+  animation: warningIconBounce 2s ease-in-out infinite;
+}
+
+@keyframes warningIconBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+
+.warning-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: oklch(var(--primary));
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 
+    0 0 10px oklch(var(--primary) / 0.5),
+    0 0 20px oklch(var(--primary) / 0.3);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.warning-subtitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: oklch(var(--accent));
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-top: 0.5rem;
+}
+
+.warning-text-content {
+  background: oklch(var(--muted) / 0.3);
+  border: 2px solid oklch(var(--border));
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.warning-text {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: oklch(var(--foreground));
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.warning-text:last-child {
+  margin-bottom: 0;
+}
+
+.warning-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.warning-enter-button {
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 1.5rem 3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: oklch(var(--primary));
+  color: oklch(var(--primary-foreground));
+  border: 2px solid oklch(var(--primary));
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px oklch(var(--primary) / 0.4);
+}
+
+.warning-enter-button:hover {
+  background: oklch(var(--accent));
+  border-color: oklch(var(--accent));
+  box-shadow: 0 6px 25px oklch(var(--accent) / 0.5);
+  transform: translateY(-2px);
+}
+
+.warning-enter-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px oklch(var(--primary) / 0.4);
+}
+
+.warning-footer {
+  padding: 1.5rem;
+  text-align: center;
+  color: oklch(var(--muted-foreground));
+  font-size: 0.875rem;
+  background: oklch(var(--card) / 0.5);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid oklch(var(--border));
+  position: relative;
+  z-index: 2;
 }

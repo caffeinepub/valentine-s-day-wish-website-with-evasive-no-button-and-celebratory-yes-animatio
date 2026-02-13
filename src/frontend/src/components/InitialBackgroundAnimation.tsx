@@ -6,38 +6,59 @@ interface Particle {
   delay: number;
   duration: number;
   size: number;
-  hue: number;
+  color: string;
 }
 
 export function InitialBackgroundAnimation() {
   const [particles, setParticles] = useState<Particle[]>([]);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    // Generate 20 particles with random properties
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+
+    // Generate random particles
+    const colors = ['#ff6b9d', '#ffc2d1', '#ff8fab', '#ffb3c6', '#ff9eb7'];
     const generatedParticles: Particle[] = Array.from({ length: 20 }, (_, i) => ({
       id: i,
-      left: Math.random() * 100, // Random horizontal position (0-100%)
-      delay: Math.random() * 6, // Random delay (0-6s)
-      duration: 8 + Math.random() * 6, // Random duration (8-14s)
-      size: 20 + Math.random() * 60, // Random size (20-80px)
-      hue: 345 + Math.random() * 30, // Random hue in pink/red range (345-375)
+      left: Math.random() * 100,
+      delay: Math.random() * 8,
+      duration: 12 + Math.random() * 8,
+      size: 20 + Math.random() * 60,
+      color: colors[Math.floor(Math.random() * colors.length)],
     }));
+
     setParticles(generatedParticles);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
   }, []);
 
+  if (prefersReducedMotion) {
+    return null;
+  }
+
   return (
-    <div className="initial-background-animation">
+    <div className="valentine-background-animation">
       {particles.map((particle) => (
         <div
           key={particle.id}
-          className="floating-particle"
+          className="valentine-particle"
           style={{
             left: `${particle.left}%`,
-            animationDelay: `${particle.delay}s`,
-            animationDuration: `${particle.duration}s`,
             width: `${particle.size}px`,
             height: `${particle.size}px`,
-            background: `radial-gradient(circle, oklch(0.85 0.15 ${particle.hue} / 0.3) 0%, oklch(0.75 0.20 ${particle.hue} / 0.1) 50%, transparent 100%)`,
+            background: `radial-gradient(circle, ${particle.color}40, transparent)`,
+            animationDelay: `${particle.delay}s`,
+            animationDuration: `${particle.duration}s`,
           }}
         />
       ))}

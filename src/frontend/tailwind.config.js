@@ -49,13 +49,8 @@ export default {
                     DEFAULT: 'oklch(var(--card))',
                     foreground: 'oklch(var(--card-foreground))'
                 },
-                chart: {
-                    1: 'oklch(var(--chart-1))',
-                    2: 'oklch(var(--chart-2))',
-                    3: 'oklch(var(--chart-3))',
-                    4: 'oklch(var(--chart-4))',
-                    5: 'oklch(var(--chart-5))'
-                }
+                'valentine-glow': 'oklch(var(--valentine-glow) / <alpha-value>)',
+                'valentine-accent': 'oklch(var(--valentine-accent) / <alpha-value>)'
             },
             borderRadius: {
                 lg: 'var(--radius)',
@@ -63,26 +58,15 @@ export default {
                 sm: 'calc(var(--radius) - 4px)'
             },
             fontFamily: {
-                sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-                serif: ['Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif']
+                sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                serif: ['Georgia', 'Palatino', 'Times New Roman', 'serif'],
+                mono: ['Courier New', 'monospace']
             },
             boxShadow: {
-                xs: '0 1px 2px 0 rgba(0,0,0,0.05)',
-                romantic: '0 20px 60px oklch(var(--primary) / 0.15)'
-            },
-            keyframes: {
-                'accordion-down': {
-                    from: { height: '0' },
-                    to: { height: 'var(--radix-accordion-content-height)' }
-                },
-                'accordion-up': {
-                    from: { height: 'var(--radix-accordion-content-height)' },
-                    to: { height: '0' }
-                }
-            },
-            animation: {
-                'accordion-down': 'accordion-down 0.2s ease-out',
-                'accordion-up': 'accordion-up 0.2s ease-out'
+                'valentine': '0 4px 20px oklch(var(--valentine-glow) / 0.3)',
+                'valentine-lg': '0 8px 40px oklch(var(--valentine-glow) / 0.4)',
+                'warning': '0 0 30px oklch(var(--primary) / 0.3)',
+                'warning-lg': '0 0 60px oklch(var(--primary) / 0.4)'
             }
         }
     },
