@@ -4,18 +4,22 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { useGetMemory } from '../../hooks/useMemories';
+import { useGetPublishedMemory } from '../../hooks/useSharedMemories';
 import { formatTime } from '../../lib/time';
 import { Loader2, Calendar, Clock } from 'lucide-react';
 
-interface MemoryDetailDialogProps {
+interface SharedMemoryDetailDialogProps {
   memoryId: bigint | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export function MemoryDetailDialog({ memoryId, open, onOpenChange }: MemoryDetailDialogProps) {
-  const { data: memory, isLoading } = useGetMemory(memoryId);
+export function SharedMemoryDetailDialog({
+  memoryId,
+  open,
+  onOpenChange,
+}: SharedMemoryDetailDialogProps) {
+  const { data: memory, isLoading } = useGetPublishedMemory(memoryId);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

@@ -1,13 +1,14 @@
 # Specification
 
 ## Summary
-**Goal:** Turn the Valentine landing page into an interactive “Will you be my Valentine?” wish flow with Yes/No choices, an evasive No button, a celebratory Yes overlay with a sweet message, and a small photo section.
+**Goal:** Let signed-in users publish/unpublish their uploaded memories and share a public link that anyone can open to view only the published memories.
 
 **Planned changes:**
-- Update the hero section to replace the single CTA with a Valentine prompt and exactly two actions: “Yes” and “No”.
-- Implement an evasive “No” button behavior via `frontend/src/hooks/useEvasiveButton.ts`, with viewport/container constraints, no overlap with “Yes”, touch support, and a reduced-motion fallback.
-- Add a `CelebrationOverlay` component and wire it into the Valentine page so clicking “Yes” shows a confetti/crackers burst + sparkles/lights effect, then displays an English sweet acceptance message; allow it to dismiss automatically or via a close action, with a reduced-motion alternative.
-- Add a responsive Valentine-themed photo section below the main interaction that displays at least 3 static images loaded from frontend public assets.
-- Centralize all new user-facing copy (prompt, labels if customized, sweet message, helper text) in `frontend/src/config/valentineConfig.ts` and render strings from config in English.
+- Add backend publish state per owner (enabled/disabled) and a share identifier/token that can be generated and regenerated.
+- Add backend unauthenticated query API(s) to fetch only published memories by share identifier/token, with clear empty/error behavior for invalid/disabled shares.
+- Update backend access control so existing authenticated memory endpoints remain owner-only, and public access is possible only via the new share endpoints when publishing is enabled.
+- Add frontend controls for authenticated users to enable/disable publishing and copy the share link, with clear published/unpublished status.
+- Add a public, read-only “shared memories” frontend mode that detects a share identifier/token in the URL and displays the published gallery without requiring sign-in.
+- If new backend persistent state is introduced, add a conditional Motoko migration to preserve existing canister data across upgrade and default existing users to unpublished.
 
-**User-visible outcome:** Visitors see a Valentine question with “Yes” and an evasive “No”; tapping/clicking “Yes” triggers a celebratory overlay and shows a sweet message, and they can scroll to view a small gallery of Valentine-themed photos.
+**User-visible outcome:** Signed-in users can publish their memories and copy a shareable link; anyone with that link can view a read-only gallery of the published memories without logging in, and unpublished/invalid links show a clear unavailable message.

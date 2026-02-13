@@ -29,7 +29,29 @@ export const UserRole = IDL.Variant({
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const Memory = IDL.Record({
   'id' : IDL.Nat,
+  'isPublished' : IDL.Bool,
   'owner' : IDL.Principal,
+  'timestamp' : Time,
+  'caption' : IDL.Opt(IDL.Text),
+  'photo' : ExternalBlob,
+  'dateTaken' : IDL.Opt(Time),
+});
+export const PersonalizedValentineGreeting = IDL.Record({
+  'recipient' : IDL.Text,
+  'message' : IDL.Text,
+});
+export const MemoryPublic = IDL.Record({
+  'id' : IDL.Nat,
+  'isPublished' : IDL.Bool,
+  'owner' : IDL.Principal,
+  'timestamp' : Time,
+  'caption' : IDL.Opt(IDL.Text),
+  'photo' : ExternalBlob,
+  'dateTaken' : IDL.Opt(Time),
+});
+export const MemoryMetadata = IDL.Record({
+  'owner' : IDL.Principal,
+  'memoryId' : IDL.Nat,
   'timestamp' : Time,
   'caption' : IDL.Opt(IDL.Text),
   'photo' : ExternalBlob,
@@ -64,6 +86,7 @@ export const idlService = IDL.Service({
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'acceptValentine' : IDL.Func([], [], []),
   'addMemory' : IDL.Func(
       [IDL.Opt(IDL.Text), IDL.Opt(Time), ExternalBlob],
       [],
@@ -73,6 +96,16 @@ export const idlService = IDL.Service({
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getMemory' : IDL.Func([IDL.Nat], [IDL.Opt(Memory)], ['query']),
+  'getPersonalizedGreeting' : IDL.Func(
+      [],
+      [IDL.Opt(PersonalizedValentineGreeting)],
+      ['query'],
+    ),
+  'getPublishedMemory' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Opt(MemoryPublic)],
+      ['query'],
+    ),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
@@ -80,7 +113,11 @@ export const idlService = IDL.Service({
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'listMemories' : IDL.Func([], [IDL.Vec(Memory)], ['query']),
+  'listPublishedMemories' : IDL.Func([], [IDL.Vec(MemoryPublic)], ['query']),
+  'listUserPhotoMemories' : IDL.Func([], [IDL.Vec(MemoryMetadata)], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'setPersonalizedGreeting' : IDL.Func([IDL.Text, IDL.Text], [], []),
+  'togglePublishMemory' : IDL.Func([IDL.Nat], [], []),
 });
 
 export const idlInitArgs = [];
@@ -107,7 +144,29 @@ export const idlFactory = ({ IDL }) => {
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const Memory = IDL.Record({
     'id' : IDL.Nat,
+    'isPublished' : IDL.Bool,
     'owner' : IDL.Principal,
+    'timestamp' : Time,
+    'caption' : IDL.Opt(IDL.Text),
+    'photo' : ExternalBlob,
+    'dateTaken' : IDL.Opt(Time),
+  });
+  const PersonalizedValentineGreeting = IDL.Record({
+    'recipient' : IDL.Text,
+    'message' : IDL.Text,
+  });
+  const MemoryPublic = IDL.Record({
+    'id' : IDL.Nat,
+    'isPublished' : IDL.Bool,
+    'owner' : IDL.Principal,
+    'timestamp' : Time,
+    'caption' : IDL.Opt(IDL.Text),
+    'photo' : ExternalBlob,
+    'dateTaken' : IDL.Opt(Time),
+  });
+  const MemoryMetadata = IDL.Record({
+    'owner' : IDL.Principal,
+    'memoryId' : IDL.Nat,
     'timestamp' : Time,
     'caption' : IDL.Opt(IDL.Text),
     'photo' : ExternalBlob,
@@ -142,6 +201,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'acceptValentine' : IDL.Func([], [], []),
     'addMemory' : IDL.Func(
         [IDL.Opt(IDL.Text), IDL.Opt(Time), ExternalBlob],
         [],
@@ -151,6 +211,16 @@ export const idlFactory = ({ IDL }) => {
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getMemory' : IDL.Func([IDL.Nat], [IDL.Opt(Memory)], ['query']),
+    'getPersonalizedGreeting' : IDL.Func(
+        [],
+        [IDL.Opt(PersonalizedValentineGreeting)],
+        ['query'],
+      ),
+    'getPublishedMemory' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Opt(MemoryPublic)],
+        ['query'],
+      ),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
@@ -158,7 +228,15 @@ export const idlFactory = ({ IDL }) => {
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'listMemories' : IDL.Func([], [IDL.Vec(Memory)], ['query']),
+    'listPublishedMemories' : IDL.Func([], [IDL.Vec(MemoryPublic)], ['query']),
+    'listUserPhotoMemories' : IDL.Func(
+        [],
+        [IDL.Vec(MemoryMetadata)],
+        ['query'],
+      ),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'setPersonalizedGreeting' : IDL.Func([IDL.Text, IDL.Text], [], []),
+    'togglePublishMemory' : IDL.Func([IDL.Nat], [], []),
   });
 };
 

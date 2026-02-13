@@ -2,55 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-valentine-landing-page-to-present-a-clear-valentine-s-day-wish-prompt-with-two-options-a-yes-button-and-a-no-button-replacing-the-current-single-cta-button-in-the-hero-section",
-      "featureTitle": "Update the Valentine landing page to present a clear Valentine’s Day wish prompt with two options: a “Yes” button and a “No” button, replacing the current single CTA button in the hero section.",
+      "featureId": "feature-add-frontend-ui-for-signed-in-users-to-publish-unpublish-their-memories-and-copy-a-shareable-link-that-can-be-opened-by-anyone-to-view-the-published-memories",
+      "featureTitle": "Add frontend UI for signed-in users to publish/unpublish their memories and copy a shareable link that can be opened by anyone to view the published memories.",
       "files": [
+        "frontend/src/features/memories/PublishShareCard.tsx",
         "frontend/src/features/valentine/ValentinePage.tsx",
-        "frontend/src/index.css"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "blob-storage@4.0.0"
-      ],
-      "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-an-evasive-escaping-behavior-for-the-no-button-so-that-when-the-user-tries-to-click-it-hover-tap-attempt-it-moves-away-repeatedly-and-remains-difficult-to-click-encouraging-the-user-to-click-yes-use-the-existing-placeholder-hook-file-frontend-src-hooks-useevasivebutton-ts-to-encapsulate-the-behavior",
-      "featureTitle": "Implement an evasive/escaping behavior for the “No” button so that when the user tries to click it (hover/tap attempt), it moves away repeatedly and remains difficult to click, encouraging the user to click “Yes”. Use the existing placeholder hook file `frontend/src/hooks/useEvasiveButton.ts` to encapsulate the behavior.",
-      "files": [
-        "frontend/src/features/valentine/ValentinePage.tsx",
-        "frontend/src/hooks/useEvasiveButton.ts",
-        "frontend/src/index.css"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "blob-storage@4.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-on-yes-click-show-a-celebratory-overlay-that-includes-a-crackers-confetti-style-burst-plus-sparkles-light-effects-in-the-background-and-then-reveal-a-sweet-acceptance-message-implement-the-celebration-visuals-in-frontend-src-components-celebrationoverlay-tsx-currently-empty-and-wire-it-into-frontend-src-features-valentine-valentinepage-tsx",
-      "featureTitle": "On “Yes” click, show a celebratory overlay that includes a crackers/confetti-style burst plus sparkles/light effects in the background, and then reveal a sweet acceptance message. Implement the celebration visuals in `frontend/src/components/CelebrationOverlay.tsx` (currently empty) and wire it into `frontend/src/features/valentine/ValentinePage.tsx`.",
-      "files": [
-        "frontend/src/components/CelebrationOverlay.tsx",
-        "frontend/src/features/valentine/ValentinePage.tsx",
-        "frontend/src/index.css"
+        "frontend/src/hooks/useSharePublishing.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -67,12 +24,14 @@
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-a-photo-section-to-the-valentine-page-that-displays-some-photos-a-small-gallery-grid-or-polaroid-style-cards-below-the-main-interaction-using-static-frontend-assets-do-not-load-photos-from-the-backend",
-      "featureTitle": "Add a photo section to the Valentine page that displays “some photos” (a small gallery/grid or polaroid-style cards) below the main interaction, using static frontend assets (do not load photos from the backend).",
+      "featureId": "feature-add-a-public-shared-memories-viewing-mode-in-the-frontend-that-detects-a-share-identifier-token-in-the-url-and-shows-the-published-memories-without-requiring-internet-identity-sign-in",
+      "featureTitle": "Add a public “shared memories” viewing mode in the frontend that detects a share identifier/token in the URL and shows the published memories without requiring Internet Identity sign-in.",
       "files": [
-        "frontend/src/config/valentineConfig.ts",
-        "frontend/src/features/valentine/ValentinePage.tsx",
-        "frontend/src/index.css"
+        "frontend/src/App.tsx",
+        "frontend/src/features/memories/SharedMemoriesGallery.tsx",
+        "frontend/src/features/memories/SharedMemoriesPage.tsx",
+        "frontend/src/features/memories/SharedMemoryDetailDialog.tsx",
+        "frontend/src/hooks/useSharedMemories.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -85,27 +44,6 @@
       ],
       "testIds": [
         "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-move-all-new-user-facing-copy-for-the-valentine-wish-flow-question-text-yes-no-labels-if-customized-sweet-acceptance-message-and-any-helper-text-into-frontend-src-config-valentineconfig-ts-and-ensure-the-valentine-page-renders-those-strings-from-the-config-in-english",
-      "featureTitle": "Move all new user-facing copy for the Valentine wish flow (question text, Yes/No labels if customized, sweet acceptance message, and any helper text) into `frontend/src/config/valentineConfig.ts`, and ensure the Valentine page renders those strings from the config in English.",
-      "files": [
-        "frontend/src/config/valentineConfig.ts",
-        "frontend/src/features/valentine/ValentinePage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0",
-        "authorization@4.0.0",
-        "blob-storage@4.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
       ],
       "confidence": "high"
     }

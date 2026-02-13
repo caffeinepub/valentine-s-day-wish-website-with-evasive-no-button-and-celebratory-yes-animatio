@@ -1,49 +1,26 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Build a Valentine’s Day wish web page with playful Yes/No interaction, celebratory animations on acceptance, and personalized content (message + photos).",
+  "summary": "A web app to upload personal memories (photos/content) and publish them so they can be shared via a public link accessible by anyone.",
   "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Romantic photo-style illustration 1, warm Valentine color grading (valentine-photo-1.dim_1200x800.png)\n- Romantic photo-style illustration 2, warm Valentine color grading (valentine-photo-2.dim_1200x800.png)\n- Romantic photo-style illustration 3, warm Valentine color grading (valentine-photo-3.dim_1200x800.png)\n- Soft bokeh light overlay with sparkles, transparent background (valentine-bokeh-sparkles-overlay.dim_1920x1080.png)",
+  "known_issues": [
+    "Internal AI system error occurred during build/deploy; user requested retry."
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-update-the-valentine-landing-page-to-present-a-clear-valentine-s-day-wish-prompt-with-two-options-a-yes-button-and-a-no-button-replacing-the-current-single-cta-button-in-the-hero-section",
-      "title": "Update the Valentine landing page to present a clear Valentine’s Day wish prompt with two options: a “Yes” button and a “No” button, replacing the current single CTA button in the hero section.",
-      "reqIds": [
-        "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-implement-an-evasive-escaping-behavior-for-the-no-button-so-that-when-the-user-tries-to-click-it-hover-tap-attempt-it-moves-away-repeatedly-and-remains-difficult-to-click-encouraging-the-user-to-click-yes-use-the-existing-placeholder-hook-file-frontend-src-hooks-useevasivebutton-ts-to-encapsulate-the-behavior",
-      "title": "Implement an evasive/escaping behavior for the “No” button so that when the user tries to click it (hover/tap attempt), it moves away repeatedly and remains difficult to click, encouraging the user to click “Yes”. Use the existing placeholder hook file `frontend/src/hooks/useEvasiveButton.ts` to encapsulate the behavior.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-on-yes-click-show-a-celebratory-overlay-that-includes-a-crackers-confetti-style-burst-plus-sparkles-light-effects-in-the-background-and-then-reveal-a-sweet-acceptance-message-implement-the-celebration-visuals-in-frontend-src-components-celebrationoverlay-tsx-currently-empty-and-wire-it-into-frontend-src-features-valentine-valentinepage-tsx",
-      "title": "On “Yes” click, show a celebratory overlay that includes a crackers/confetti-style burst plus sparkles/light effects in the background, and then reveal a sweet acceptance message. Implement the celebration visuals in `frontend/src/components/CelebrationOverlay.tsx` (currently empty) and wire it into `frontend/src/features/valentine/ValentinePage.tsx`.",
+      "id": "feature-add-frontend-ui-for-signed-in-users-to-publish-unpublish-their-memories-and-copy-a-shareable-link-that-can-be-opened-by-anyone-to-view-the-published-memories",
+      "title": "Add frontend UI for signed-in users to publish/unpublish their memories and copy a shareable link that can be opened by anyone to view the published memories.",
       "reqIds": [
         "REQ-3"
       ],
       "version": 1
     },
     {
-      "id": "feature-add-a-photo-section-to-the-valentine-page-that-displays-some-photos-a-small-gallery-grid-or-polaroid-style-cards-below-the-main-interaction-using-static-frontend-assets-do-not-load-photos-from-the-backend",
-      "title": "Add a photo section to the Valentine page that displays “some photos” (a small gallery/grid or polaroid-style cards) below the main interaction, using static frontend assets (do not load photos from the backend).",
+      "id": "feature-add-a-public-shared-memories-viewing-mode-in-the-frontend-that-detects-a-share-identifier-token-in-the-url-and-shows-the-published-memories-without-requiring-internet-identity-sign-in",
+      "title": "Add a public “shared memories” viewing mode in the frontend that detects a share identifier/token in the URL and shows the published memories without requiring Internet Identity sign-in.",
       "reqIds": [
         "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-move-all-new-user-facing-copy-for-the-valentine-wish-flow-question-text-yes-no-labels-if-customized-sweet-acceptance-message-and-any-helper-text-into-frontend-src-config-valentineconfig-ts-and-ensure-the-valentine-page-renders-those-strings-from-the-config-in-english",
-      "title": "Move all new user-facing copy for the Valentine wish flow (question text, Yes/No labels if customized, sweet acceptance message, and any helper text) into `frontend/src/config/valentineConfig.ts`, and ensure the Valentine page renders those strings from the config in English.",
-      "reqIds": [
-        "REQ-5"
       ],
       "version": 1
     }
@@ -51,37 +28,36 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Create Valentine’s Day wish page with a main message and two buttons: Yes and No",
+      "summary": "Allow users to upload memories (e.g., photos/content) and publish them to a shareable public link accessible by anyone.",
       "reqIds": [],
       "status": "pending"
     },
     {
       "id": "AR-2",
-      "summary": "Make the 'No' button evade/escape repeatedly so it’s hard to click, encouraging the user to click 'Yes'",
+      "summary": "Add backend support for publishing a user’s uploaded memories to a shareable public link so that anyone (including unauthenticated visitors) can view the published memories.",
       "reqIds": [
-        "AR-1"
+        "REQ-1"
       ],
       "status": "pending"
     },
     {
       "id": "AR-3",
-      "summary": "On 'Yes' click, show crackers/confetti animation with sparkles/lights in the background",
+      "summary": "Update backend access control so private memories remain accessible only to the owner (as today), while published memories are accessible only through the new public-share query APIs and only when the owner has explicitly enabled publishing.",
       "reqIds": [
-        "AR-1"
+        "REQ-2"
       ],
       "status": "pending"
     },
     {
-      "id": "AR-4",
-      "summary": "Display a sweet message and include some photos on the page (user-provided)",
+      "id": "AR-6",
+      "summary": "If the backend needs new persistent state to support publishing/share links, add a conditional Motoko migration to preserve existing canister data across upgrade.",
       "reqIds": [
-        "AR-1"
+        "REQ-5"
       ],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Valentine Day Wish Page",
+  "projectName": "Publish memories via shareable public link",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

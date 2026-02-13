@@ -1,125 +1,121 @@
 {
   "kind": "build_request",
-  "title": "Valentine wish page with evasive No button, Yes celebration overlay, sweet message, and photo section",
+  "title": "Publish memories via shareable public link",
   "priority": "normal",
   "requirements": [
     {
       "id": "REQ-1",
-      "text": "Update the Valentine landing page to present a clear Valentine’s Day wish prompt with two options: a “Yes” button and a “No” button, replacing the current single CTA button in the hero section.",
-      "target": "frontend",
+      "text": "Add backend support for publishing a user’s uploaded memories to a shareable public link so that anyone (including unauthenticated visitors) can view the published memories.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-6",
+          "msg-10"
         ],
         "quotes": [
-          "make a valentine day wish page where should be message and button should be there for option yes and No"
+          "I want to upload memories and make it publish so if i can share link anybody access my memories which i upload",
+          "yes"
         ]
       },
       "acceptanceCriteria": [
-        "The hero section shows a primary Valentine wish question/message and exactly two visible actions labeled “Yes” and “No”.",
-        "The previous single hero CTA (“Explore Memories”) is no longer the primary interaction shown in the hero section."
+        "Backend stores a per-owner publish state that can be enabled/disabled.",
+        "Backend generates (and can regenerate) a share identifier/token for the owner that is used in the public link.",
+        "Backend provides query methods that allow unauthenticated callers to fetch the published memories by share identifier/token.",
+        "Public queries return only published data; if a share link is invalid or publishing is disabled, the backend returns an empty result or a clear error without exposing private memories.",
+        "Existing authenticated memory upload/list/get flows continue to work unchanged for the owner."
       ]
     },
     {
       "id": "REQ-2",
-      "text": "Implement an evasive/escaping behavior for the “No” button so that when the user tries to click it (hover/tap attempt), it moves away repeatedly and remains difficult to click, encouraging the user to click “Yes”. Use the existing placeholder hook file `frontend/src/hooks/useEvasiveButton.ts` to encapsulate the behavior.",
-      "target": "frontend",
+      "text": "Update backend access control so private memories remain accessible only to the owner (as today), while published memories are accessible only through the new public-share query APIs and only when the owner has explicitly enabled publishing.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-6"
         ],
         "quotes": [
-          "when you want to click no it should be escape again and again then you have to click yes"
+          "I want to upload memories and make it publish so if i can share link anybody access my memories which i upload"
         ]
       },
       "acceptanceCriteria": [
-        "On desktop, when the pointer approaches/hover-starts on the “No” button, the button relocates to a different position within a defined container without leaving the viewport.",
-        "On touch devices, the first tap attempt on “No” causes it to move (i.e., it should not be trivially clickable).",
-        "The “No” button movement is constrained so it never overlaps the “Yes” button and never becomes permanently unreachable.",
-        "When `prefers-reduced-motion: reduce` is enabled, the “No” button does not animate evasively; instead it remains stable (or uses a minimal, non-animated fallback)."
+        "Authenticated endpoints (e.g., listUserPhotoMemories/getMemory/listMemories) keep enforcing owner-only access (and admin behavior if applicable).",
+        "Unauthenticated callers cannot access any private memories through existing endpoints.",
+        "Unauthenticated callers can access published memories only via the new public-share query endpoints and only with a valid share identifier/token."
       ]
     },
     {
       "id": "REQ-3",
-      "text": "On “Yes” click, show a celebratory overlay that includes a crackers/confetti-style burst plus sparkles/light effects in the background, and then reveal a sweet acceptance message. Implement the celebration visuals in `frontend/src/components/CelebrationOverlay.tsx` (currently empty) and wire it into `frontend/src/features/valentine/ValentinePage.tsx`.",
+      "text": "Add frontend UI for signed-in users to publish/unpublish their memories and copy a shareable link that can be opened by anyone to view the published memories.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-6",
+          "msg-10"
         ],
         "quotes": [
-          "once clicked it displaying crakers animation sparkles light in the background and there should be some sweet meassage"
+          "I want to upload memories and make it publish so if i can share link anybody access my memories which i upload",
+          "yes"
         ]
       },
       "acceptanceCriteria": [
-        "Clicking “Yes” triggers an on-screen celebration layer (confetti/crackers burst + sparkles/lights effect) that is visibly distinct from the existing floating hearts/background particles.",
-        "After clicking “Yes”, a sweet message is displayed prominently in the page content (English).",
-        "The celebration overlay can be dismissed automatically after a short duration or via an explicit close action, and it does not block scrolling/interaction indefinitely.",
-        "When `prefers-reduced-motion: reduce` is enabled, the celebration uses a reduced-motion alternative (e.g., static sparkles/glow + message without heavy motion)."
+        "When the user is authenticated, the UI provides controls to: (1) enable publishing, (2) disable publishing, and (3) copy the current share link to clipboard.",
+        "The UI clearly indicates the current publishing status (published/unpublished).",
+        "If publishing is enabled, the UI shows the share link in a copyable form (button or input + copy).",
+        "If the user is not authenticated, publish controls are not shown and/or an access-required message is displayed.",
+        "User-facing text is in English."
       ]
     },
     {
       "id": "REQ-4",
-      "text": "Add a photo section to the Valentine page that displays “some photos” (a small gallery/grid or polaroid-style cards) below the main interaction, using static frontend assets (do not load photos from the backend).",
+      "text": "Add a public “shared memories” viewing mode in the frontend that detects a share identifier/token in the URL and shows the published memories without requiring Internet Identity sign-in.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-6"
         ],
         "quotes": [
-          "and some photos"
+          "share link anybody access my memories which i upload"
         ]
       },
       "acceptanceCriteria": [
-        "The page includes a dedicated photo area showing at least 3 images.",
-        "Images are loaded from `frontend/public/assets/generated` (or other frontend static public path) and rendered directly by the frontend.",
-        "The photo layout is responsive (1 column on small screens, multi-column on larger screens) and visually consistent with the Valentine theme."
+        "When the app loads with a share identifier/token present in the URL (query or hash), the app renders a public read-only gallery view for the shared memories instead of the private authenticated experience.",
+        "The public view uses the backend public-share query API to fetch and display the published memories (image + caption/date where available).",
+        "The public view does not show upload, edit, or other authenticated-only controls.",
+        "If the share link is invalid or the owner has unpublished, the public view shows a clear empty/error state in English (e.g., “This shared page is unavailable”)."
       ]
     },
     {
       "id": "REQ-5",
-      "text": "Move all new user-facing copy for the Valentine wish flow (question text, Yes/No labels if customized, sweet acceptance message, and any helper text) into `frontend/src/config/valentineConfig.ts`, and ensure the Valentine page renders those strings from the config in English.",
-      "target": "frontend",
+      "text": "If the backend needs new persistent state to support publishing/share links, add a conditional Motoko migration to preserve existing canister data across upgrade.",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-6"
         ],
         "quotes": [
-          "Use English for any user-facing text in the build request."
+          "I want to upload memories and make it publish so if i can share link anybody access my memories which i upload"
         ]
       },
       "acceptanceCriteria": [
-        "All newly introduced Valentine wish text is sourced from `valentineConfig` (not hardcoded in the component).",
-        "All displayed copy for this flow is English."
+        "On upgrade, existing user profiles, memories, and valentine state remain intact.",
+        "New publish/share-link state is initialized safely for existing users (defaults to unpublished).",
+        "Migration is only introduced/updated if required by a state/schema change (conditional migration policy)."
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths must not be edited: `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, `frontend/src/main.tsx`, `frontend/src/components/ui/*`.",
-    "Do not serve images via the backend; render static images from the frontend public assets directory."
+    "Backend must remain a single Motoko actor (all logic in backend/main.mo).",
+    "Do not edit frontend files under immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui (compose instead).",
+    "Use English for any user-facing text."
   ],
   "nonGoals": [
-    "Implementing Internet Identity login/profile/memories backend flows (not required for this Valentine wish interaction).",
-    "Adding real-time features (websockets/chat/notifications).",
-    "Using external image hosting or third-party APIs for photos/animations."
+    "Adding third-party authentication providers (only Internet Identity is allowed).",
+    "Real-time collaboration/chat, notifications, or WebSockets.",
+    "External databases or off-chain storage.",
+    "Allowing the public link to browse or discover all users’ memories without a share identifier/token."
   ],
   "imageRequirements": {
-    "required": [
-      "Romantic photo-style illustration 1, warm Valentine color grading (valentine-photo-1.dim_1200x800.png)",
-      "Romantic photo-style illustration 2, warm Valentine color grading (valentine-photo-2.dim_1200x800.png)",
-      "Romantic photo-style illustration 3, warm Valentine color grading (valentine-photo-3.dim_1200x800.png)",
-      "Soft bokeh light overlay with sparkles, transparent background (valentine-bokeh-sparkles-overlay.dim_1920x1080.png)"
-    ],
+    "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

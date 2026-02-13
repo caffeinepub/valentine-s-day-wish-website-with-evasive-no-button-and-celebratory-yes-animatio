@@ -1,125 +1,80 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Valentine wish page: Yes/No prompt, evasive No, celebration overlay, and photo gallery",
+  "title": "Publish memories via shareable public link (frontend)",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Replace the hero single CTA with a clear Valentine wish prompt and two actions (Yes/No).",
-      "acceptanceCriteria": [
-        "The hero section shows a primary Valentine wish question/message and exactly two visible actions labeled “Yes” and “No”.",
-        "The previous single hero CTA (“Explore Memories”) is no longer the primary interaction shown in the hero section."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/features/valentine/ValentinePage.tsx",
-          "operation": "modify",
-          "description": "Update the hero section to render the Valentine wish question and two actions (Yes/No) instead of the single CTA. Use the shadcn-ui Button component for the actions (Verify the component's usage instructions before implementing)."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add/adjust styles for the new hero wish prompt layout, including a dedicated button container that will serve as the bounded area for the evasive No button movement."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Implement an evasive No button behavior via useEvasiveButton hook with viewport-safe constraints and reduced-motion fallback.",
-      "acceptanceCriteria": [
-        "On desktop, when the pointer approaches/hover-starts on the “No” button, the button relocates to a different position within a defined container without leaving the viewport.",
-        "On touch devices, the first tap attempt on “No” causes it to move (i.e., it should not be trivially clickable).",
-        "The “No” button movement is constrained so it never overlaps the “Yes” button and never becomes permanently unreachable.",
-        "When `prefers-reduced-motion: reduce` is enabled, the “No” button does not animate evasively; instead it remains stable (or uses a minimal, non-animated fallback)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/hooks/useEvasiveButton.ts",
-          "operation": "modify",
-          "description": "Implement the useEvasiveButton hook to manage evasive positioning for the “No” button within a provided container, including constraints to stay within bounds, avoid overlap with the “Yes” button, support hover-approach and touch-first-tap behaviors, and provide prefers-reduced-motion fallback."
-        },
-        {
-          "path": "frontend/src/features/valentine/ValentinePage.tsx",
-          "operation": "modify",
-          "description": "Wire the useEvasiveButton hook into the Valentine wish action area: define a bounded container, attach the required refs/handlers to the “No” button and container, and ensure No cannot overlap the Yes button."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add styles for the evasive button container and positioning (e.g., relative container + absolutely positioned No button). Ensure focus-visible and mobile tap targets remain accessible."
-        }
-      ]
-    },
-    {
       "id": "REQ-3",
-      "summary": "Show a dismissible celebration overlay on Yes click with distinct confetti/crackers burst, sparkles/lights background, and a sweet acceptance message, with reduced-motion alternative.",
+      "summary": "Add authenticated UI to enable/disable publishing and copy a shareable public link for the user’s memories.",
       "acceptanceCriteria": [
-        "Clicking “Yes” triggers an on-screen celebration layer (confetti/crackers burst + sparkles/lights effect) that is visibly distinct from the existing floating hearts/background particles.",
-        "After clicking “Yes”, a sweet message is displayed prominently in the page content (English).",
-        "The celebration overlay can be dismissed automatically after a short duration or via an explicit close action, and it does not block scrolling/interaction indefinitely.",
-        "When `prefers-reduced-motion: reduce` is enabled, the celebration uses a reduced-motion alternative (e.g., static sparkles/glow + message without heavy motion)."
+        "When the user is authenticated, the UI provides controls to: (1) enable publishing, (2) disable publishing, and (3) copy the current share link to clipboard.",
+        "The UI clearly indicates the current publishing status (published/unpublished).",
+        "If publishing is enabled, the UI shows the share link in a copyable form (button or input + copy).",
+        "If the user is not authenticated, publish controls are not shown and/or an access-required message is displayed.",
+        "User-facing text is in English."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/CelebrationOverlay.tsx",
+          "path": "frontend/src/backend.d.ts",
           "operation": "modify",
-          "description": "Implement CelebrationOverlay to render a temporary, dismissible overlay with a confetti/crackers-style burst plus sparkles/light background (using static assets including frontend/public/assets/generated/valentine-bokeh-sparkles-overlay.dim_1920x1080.png). Include an explicit close action and an optional auto-dismiss timer, and implement prefers-reduced-motion alternative. Use shadcn-ui Button if a close button is used (Verify the component's usage instructions before implementing)."
+          "description": "Update frontend backend type definitions to include the new publishing/share-link backend capabilities required by the UI (e.g., read publish status + current share token, enable/disable publishing, regenerate token)."
+        },
+        {
+          "path": "frontend/src/hooks/useSharePublishing.ts",
+          "operation": "create",
+          "description": "Create React Query hooks for authenticated publishing management (fetch publish status/share token; enable/disable; regenerate token; handle authorization errors). Use the authorization component patterns for authenticated-only data access. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/memories/PublishShareCard.tsx",
+          "operation": "create",
+          "description": "Add an authenticated-only UI card to manage publishing status and copying the share link (includes status indicator, enable/disable action, optional regenerate action, and a copy-to-clipboard control). Use shadcn-ui components (e.g., Card, Button, Input) and sonner toasts for success/error feedback. Verify the component's usage instructions before implementing."
         },
         {
           "path": "frontend/src/features/valentine/ValentinePage.tsx",
           "operation": "modify",
-          "description": "Add Yes-click state to trigger CelebrationOverlay, show the sweet acceptance message prominently after Yes, and ensure the overlay can be dismissed or auto-dismisses without blocking interaction indefinitely."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add styles/animations for the celebration overlay layer (z-index, backdrop, burst effects, sparkles glow) and reduced-motion variants to keep visuals distinct from existing floating hearts/background particles."
+          "description": "Wire the new PublishShareCard into the authenticated memories area (only visible when the user is authenticated), ensuring all user-facing text is English and publish controls are not shown to unauthenticated visitors. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
       "id": "REQ-4",
-      "summary": "Add a responsive Valentine photo section below the main interaction using static generated frontend assets.",
+      "summary": "Add a public shared-memories mode that detects a share token in the URL and renders a read-only gallery without requiring sign-in.",
       "acceptanceCriteria": [
-        "The page includes a dedicated photo area showing at least 3 images.",
-        "Images are loaded from `frontend/public/assets/generated` (or other frontend static public path) and rendered directly by the frontend.",
-        "The photo layout is responsive (1 column on small screens, multi-column on larger screens) and visually consistent with the Valentine theme."
+        "When the app loads with a share identifier/token present in the URL (query or hash), the app renders a public read-only gallery view for the shared memories instead of the private authenticated experience.",
+        "The public view uses the backend public-share query API to fetch and display the published memories (image + caption/date where available).",
+        "The public view does not show upload, edit, or other authenticated-only controls.",
+        "If the share link is invalid or the owner has unpublished, the public view shows a clear empty/error state in English (e.g., “This shared page is unavailable”)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/features/valentine/ValentinePage.tsx",
+          "path": "frontend/src/backend.d.ts",
           "operation": "modify",
-          "description": "Add a photo section below the main Yes/No interaction that renders at least 3 static images sourced from config. Use the generated assets: frontend/public/assets/generated/valentine-photo-1.dim_1200x800.png, frontend/public/assets/generated/valentine-photo-2.dim_1200x800.png, frontend/public/assets/generated/valentine-photo-3.dim_1200x800.png."
+          "description": "Extend frontend backend type definitions to include the public-share read capabilities needed for unauthenticated viewing (e.g., list published memories by share token and optionally fetch a single published memory), aligned with the updated backend actor."
         },
         {
-          "path": "frontend/src/config/valentineConfig.ts",
-          "operation": "modify",
-          "description": "Add config entries for the Valentine photo gallery (image paths + optional captions/alt text) using the required generated filenames under frontend/public/assets/generated."
+          "path": "frontend/src/hooks/useSharedMemories.ts",
+          "operation": "create",
+          "description": "Create public-mode React Query hooks to fetch shared published memories using the share token (no Internet Identity required). Use blob-storage ExternalBlob direct URLs for image rendering. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add responsive gallery styling (1 column on small screens, multi-column on larger screens) with a Valentine/polaroid-card aesthetic consistent with the existing theme."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Centralize all new Valentine wish-flow copy in valentineConfig and render those English strings from the config.",
-      "acceptanceCriteria": [
-        "All newly introduced Valentine wish text is sourced from `valentineConfig` (not hardcoded in the component).",
-        "All displayed copy for this flow is English."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/config/valentineConfig.ts",
-          "operation": "modify",
-          "description": "Move/introduce all new wish-flow copy into config (wish question, Yes/No labels, sweet acceptance message, and any helper text). Also add the overlay/background asset path for frontend/public/assets/generated/valentine-bokeh-sparkles-overlay.dim_1920x1080.png so the UI can reference it consistently."
+          "path": "frontend/src/features/memories/SharedMemoriesPage.tsx",
+          "operation": "create",
+          "description": "Implement a public, read-only shared memories page that reads the share token from the URL (query or hash via existing urlParams helpers), fetches shared published memories, and renders a gallery + detail view without any upload/edit controls. Include English empty/error states such as “This shared page is unavailable”. Use shadcn-ui for layout/feedback components. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/features/valentine/ValentinePage.tsx",
+          "path": "frontend/src/features/memories/SharedMemoriesGallery.tsx",
+          "operation": "create",
+          "description": "Add a read-only gallery component tailored to public memory types (e.g., uses MemoryPublic id field) that renders images via ExternalBlob.getDirectURL and opens a read-only detail dialog. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/memories/SharedMemoryDetailDialog.tsx",
+          "operation": "create",
+          "description": "Add a read-only detail dialog for public memories (caption/date/upload time where available) without any publish/edit actions. Use shadcn-ui Dialog components. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update ValentinePage to read and render the wish-flow copy (question, Yes/No labels, helper text, acceptance message) exclusively from valentineConfig in English."
+          "description": "Add startup detection for a share identifier/token in the URL (query or hash) and conditionally render SharedMemoriesPage instead of the private Valentine experience when present. Ensure the public mode does not rely on Internet Identity sign-in to view data. Verify the component's usage instructions before implementing."
         }
       ]
     }

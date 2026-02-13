@@ -13,11 +13,33 @@ import type { Principal } from '@icp-sdk/core/principal';
 export type ExternalBlob = Uint8Array;
 export interface Memory {
   'id' : bigint,
+  'isPublished' : boolean,
   'owner' : Principal,
   'timestamp' : Time,
   'caption' : [] | [string],
   'photo' : ExternalBlob,
   'dateTaken' : [] | [Time],
+}
+export interface MemoryMetadata {
+  'owner' : Principal,
+  'memoryId' : bigint,
+  'timestamp' : Time,
+  'caption' : [] | [string],
+  'photo' : ExternalBlob,
+  'dateTaken' : [] | [Time],
+}
+export interface MemoryPublic {
+  'id' : bigint,
+  'isPublished' : boolean,
+  'owner' : Principal,
+  'timestamp' : Time,
+  'caption' : [] | [string],
+  'photo' : ExternalBlob,
+  'dateTaken' : [] | [Time],
+}
+export interface PersonalizedValentineGreeting {
+  'recipient' : string,
+  'message' : string,
 }
 export type Time = bigint;
 export interface UserProfile { 'name' : string }
@@ -52,6 +74,7 @@ export interface _SERVICE {
   >,
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'acceptValentine' : ActorMethod<[], undefined>,
   'addMemory' : ActorMethod<
     [[] | [string], [] | [Time], ExternalBlob],
     undefined
@@ -60,10 +83,19 @@ export interface _SERVICE {
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getMemory' : ActorMethod<[bigint], [] | [Memory]>,
+  'getPersonalizedGreeting' : ActorMethod<
+    [],
+    [] | [PersonalizedValentineGreeting]
+  >,
+  'getPublishedMemory' : ActorMethod<[bigint], [] | [MemoryPublic]>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'listMemories' : ActorMethod<[], Array<Memory>>,
+  'listPublishedMemories' : ActorMethod<[], Array<MemoryPublic>>,
+  'listUserPhotoMemories' : ActorMethod<[], Array<MemoryMetadata>>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'setPersonalizedGreeting' : ActorMethod<[string, string], undefined>,
+  'togglePublishMemory' : ActorMethod<[bigint], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

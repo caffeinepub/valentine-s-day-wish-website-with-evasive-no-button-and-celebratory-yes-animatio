@@ -1,50 +1,89 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T12:33:22.652Z",
-  "summary": "Implemented Yes/No Valentine prompt with evasive No behavior via useEvasiveButton, added CelebrationOverlay with confetti/sparkles and reduced-motion + auto/manual dismiss, and centralized wish-flow copy/assets in valentineConfig. Photo data is added to config and CSS references a gallery, but the diff snippet of ValentinePage is truncated before any photo section rendering is visible, so REQ-4 cannot be confirmed from provided evidence.",
+  "generatedAt": "2026-02-13T14:27:30.141Z",
+  "summary": "Diff adds an `isPublished` flag per memory with a toggle endpoint, plus a frontend share-mode (`?share=true`) that shows a public gallery of all published memories via `listPublishedMemories()`/`getPublishedMemory()`. However, the BuildRequest’s core requirement of a per-owner publish state and a generated/regenerated share identifier/token (used to fetch only that owner’s published memories) is not implemented, and the public APIs shown are not token-scoped. Access-control guarantees around unauthenticated callers and existing endpoints cannot be fully verified from the truncated backend diff.",
   "missing_requirements": [
     {
-      "id": "REQ-4",
-      "requirement": "Add a photo section to the Valentine page that displays at least 3 static frontend images below the main interaction (responsive layout, loaded from public assets).",
-      "reason": "Although `valentineConfig` defines a `photos` array with 3 `/assets/generated/...` images, the provided `ValentinePage.tsx` diff is truncated before showing any section that renders a gallery/photo area. Without seeing JSX that maps over `valentineConfig.photos`, implementation of the photo section cannot be verified from the diff summary.",
+      "id": "REQ-1",
+      "requirement": "Backend stores a per-owner publish state that can be enabled/disabled; backend generates (and can regenerate) a share identifier/token for the owner that is used in the public link; backend provides query methods to fetch the published memories by share identifier/token; invalid/disabled share should return empty/clear error without exposing private memories.",
+      "reason": "Implementation uses a per-memory `isPublished` flag and a global share mode (`?share=true`) with public queries `listPublishedMemories()`/`getPublishedMemory(id)` that are not scoped by an owner-specific share identifier/token. No evidence of per-owner publish state or token generation/regeneration or token-based public query methods.",
       "evidence": [
-        "frontend/src/config/valentineConfig.ts",
-        "frontend/src/features/valentine/ValentinePage.tsx (truncated)"
+        "backend/main.mo (adds Memory.isPublished and togglePublishMemory; shows MemoryPublic but no token/share-id fields in snippet)",
+        "frontend/src/features/memories/PublishShareCard.tsx (shareUrl built as `${window.location.origin}?share=true`)",
+        "frontend/src/hooks/useSharedMemories.ts (calls actor.listPublishedMemories() and actor.getPublishedMemory(id) with no token parameter)",
+        "frontend/src/App.tsx (detects share mode via `share=true` query param)"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Unauthenticated callers cannot access private memories via existing endpoints; published memories are accessible only through new public-share query APIs and only with a valid share identifier/token; existing authenticated endpoints keep enforcing owner-only access.",
+      "reason": "Diff shows new publishing toggle and new public listing/get hooks, but provides no evidence of token-gated public access or of hardened access control changes on existing endpoints. Backend snippet is truncated at `getMemory`, so owner-only enforcement and unauthenticated behavior cannot be confirmed.",
+      "evidence": [
+        "backend/main.mo (truncated; shows togglePublishMemory authorization, but existing read/list endpoints and new public endpoints are not shown/verified)",
+        "frontend/src/hooks/useSharedMemories.ts (public fetching uses listPublishedMemories without token gating)"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Frontend UI provides controls to enable publishing, disable publishing, and copy the current share link; indicates current publishing status; if not authenticated, controls hidden or access-required message shown.",
+      "reason": "UI added appears to toggle publish state per memory (not per owner), and the share link is a static `?share=true` rather than an owner’s share identifier/token. Also no evidence in the added PublishShareCard snippet that controls are hidden/blocked when unauthenticated (it relies on listMemories error handling returning empty).",
+      "evidence": [
+        "frontend/src/features/memories/PublishShareCard.tsx (uses per-memory toggle; shareUrl is `?share=true`; no auth-gating shown in snippet)",
+        "frontend/src/hooks/useSharePublishing.ts (listMemories returns [] on Unauthorized, rather than showing explicit access-required UI)"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Public shared-memories mode detects a share identifier/token in URL and uses backend public-share query API to fetch only that owner’s published memories; invalid/unpublished shows clear empty/error state.",
+      "reason": "Share mode detection is `share=true` rather than a share identifier/token, and fetching uses `listPublishedMemories()` with no token. This does not meet the requirement of not allowing public browsing without a share identifier/token.",
+      "evidence": [
+        "frontend/src/App.tsx (share mode if URL param `share=true`)",
+        "frontend/src/hooks/useSharedMemories.ts (no token; uses listPublishedMemories)",
+        "frontend/src/features/memories/SharedMemoriesPage.tsx (empty state exists, but no token-based lookup)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Added references to extra static assets beyond the four explicitly required images (hero background, heart stickers, cupid icon).",
-      "reason": "BuildRequest only required three photo illustrations and one bokeh sparkles overlay; the config adds additional asset paths not requested.",
+      "description": "Public share mode that exposes published memories via a global `?share=true` URL parameter rather than an owner-specific share identifier/token.",
+      "reason": "BuildRequest explicitly requires a share identifier/token and forbids allowing the public link to browse/discover all users’ memories without a share identifier/token. The diff implements share mode without any token and queries published memories globally.",
       "evidence": [
-        "frontend/src/config/valentineConfig.ts"
+        "frontend/src/App.tsx",
+        "frontend/src/features/memories/PublishShareCard.tsx",
+        "frontend/src/hooks/useSharedMemories.ts"
       ]
     },
     {
-      "description": "Updated site HTML title/meta description.",
-      "reason": "Not requested in the BuildRequest requirements or acceptance criteria.",
+      "description": "Per-memory publish/unpublish model (`togglePublishMemory(id)` and `Memory.isPublished`) instead of per-owner publishing enable/disable state with token management.",
+      "reason": "BuildRequest asks for per-owner publish state and token generation/regeneration; diff implements publishing as a flag on each memory and a toggle endpoint.",
       "evidence": [
-        "frontend/index.html (mentioned in frontend-file-summaries.txt)"
+        "backend/main.mo",
+        "backend/migration.mo",
+        "frontend/src/hooks/useSharePublishing.ts"
       ]
     },
     {
-      "description": "Tailwind theme token and utility additions for Valentine styling.",
-      "reason": "Not explicitly requested; requirements focused on page behavior, overlay, photos, and copy centralization.",
+      "description": "Caffeine.ai promotional footer on the public shared memories page.",
+      "reason": "Not requested by any requirement; adds unrelated branding/marketing content.",
       "evidence": [
-        "frontend/tailwind.config.js (mentioned in frontend-file-summaries.txt)"
+        "frontend/src/features/memories/SharedMemoriesPage.tsx"
       ]
     }
   ],
-  "confidence": 0.68,
+  "confidence": 0.74,
   "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/components/CelebrationOverlay.tsx",
-    "frontend/src/config/valentineConfig.ts",
+    "frontend/src/App.tsx",
+    "frontend/src/features/memories/PublishShareCard.tsx",
+    "frontend/src/features/memories/SharedMemoriesGallery.tsx",
+    "frontend/src/features/memories/SharedMemoriesPage.tsx",
+    "frontend/src/features/memories/SharedMemoryDetailDialog.tsx",
     "frontend/src/features/valentine/ValentinePage.tsx",
-    "frontend/src/hooks/useEvasiveButton.ts",
-    "frontend/src/index.css",
+    "frontend/src/hooks/useSharePublishing.ts",
+    "frontend/src/hooks/useSharedMemories.ts",
     "project_state.json"
   ]
 }

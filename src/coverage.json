@@ -1,102 +1,95 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T12:33:22.655Z",
+  "generatedAt": "2026-02-13T14:27:30.143Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
     "total": 5,
-    "implemented": 5,
+    "implemented": 2,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Update the Valentine landing page to present a clear Valentine’s Day wish prompt with two options: a “Yes” button and a “No” button, replacing the current single CTA button in the hero section.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/features/valentine/ValentinePage.tsx",
-          "frontend/src/index.css"
-        ],
-        "matchedFiles": [
-          "frontend/src/features/valentine/ValentinePage.tsx",
-          "frontend/src/index.css"
-        ]
+        "summary": "Add backend support for publishing a user’s uploaded memories to a shareable public link so that anyone (including unauthenticated visitors) can view the published memories.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
       },
       {
         "id": "REQ-2",
-        "summary": "Implement an evasive/escaping behavior for the “No” button so that when the user tries to click it (hover/tap attempt), it moves away repeatedly and remains difficult to click, encouraging the user to click “Yes”. Use the existing placeholder hook file `frontend/src/hooks/useEvasiveButton.ts` to encapsulate the behavior.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/hooks/useEvasiveButton.ts",
-          "frontend/src/features/valentine/ValentinePage.tsx",
-          "frontend/src/index.css"
-        ],
-        "matchedFiles": [
-          "frontend/src/hooks/useEvasiveButton.ts",
-          "frontend/src/features/valentine/ValentinePage.tsx",
-          "frontend/src/index.css"
-        ]
+        "summary": "Update backend access control so private memories remain accessible only to the owner (as today), while published memories are accessible only through the new public-share query APIs and only when the owner has explicitly enabled publishing.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
       },
       {
         "id": "REQ-3",
-        "summary": "On “Yes” click, show a celebratory overlay that includes a crackers/confetti-style burst plus sparkles/light effects in the background, and then reveal a sweet acceptance message. Implement the celebration visuals in `frontend/src/components/CelebrationOverlay.tsx` (currently empty) and wire it into `frontend/src/features/valentine/ValentinePage.tsx`.",
+        "summary": "Add frontend UI for signed-in users to publish/unpublish their memories and copy a shareable link that can be opened by anyone to view the published memories.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/CelebrationOverlay.tsx",
-          "frontend/src/features/valentine/ValentinePage.tsx",
-          "frontend/src/index.css"
+          "frontend/src/backend.d.ts",
+          "frontend/src/hooks/useSharePublishing.ts",
+          "frontend/src/features/memories/PublishShareCard.tsx",
+          "frontend/src/features/valentine/ValentinePage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/CelebrationOverlay.tsx",
-          "frontend/src/features/valentine/ValentinePage.tsx",
-          "frontend/src/index.css"
+          "frontend/src/backend.d.ts",
+          "frontend/src/hooks/useSharePublishing.ts",
+          "frontend/src/features/memories/PublishShareCard.tsx",
+          "frontend/src/features/valentine/ValentinePage.tsx"
         ]
       },
       {
         "id": "REQ-4",
-        "summary": "Add a photo section to the Valentine page that displays “some photos” (a small gallery/grid or polaroid-style cards) below the main interaction, using static frontend assets (do not load photos from the backend).",
+        "summary": "Add a public “shared memories” viewing mode in the frontend that detects a share identifier/token in the URL and shows the published memories without requiring Internet Identity sign-in.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/features/valentine/ValentinePage.tsx",
-          "frontend/src/config/valentineConfig.ts",
-          "frontend/src/index.css"
+          "frontend/src/backend.d.ts",
+          "frontend/src/hooks/useSharedMemories.ts",
+          "frontend/src/features/memories/SharedMemoriesPage.tsx",
+          "frontend/src/features/memories/SharedMemoriesGallery.tsx",
+          "frontend/src/features/memories/SharedMemoryDetailDialog.tsx",
+          "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/features/valentine/ValentinePage.tsx",
-          "frontend/src/config/valentineConfig.ts",
-          "frontend/src/index.css"
+          "frontend/src/backend.d.ts",
+          "frontend/src/hooks/useSharedMemories.ts",
+          "frontend/src/features/memories/SharedMemoriesPage.tsx",
+          "frontend/src/features/memories/SharedMemoriesGallery.tsx",
+          "frontend/src/features/memories/SharedMemoryDetailDialog.tsx",
+          "frontend/src/App.tsx"
         ]
       },
       {
         "id": "REQ-5",
-        "summary": "Move all new user-facing copy for the Valentine wish flow (question text, Yes/No labels if customized, sweet acceptance message, and any helper text) into `frontend/src/config/valentineConfig.ts`, and ensure the Valentine page renders those strings from the config in English.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/config/valentineConfig.ts",
-          "frontend/src/features/valentine/ValentinePage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/config/valentineConfig.ts",
-          "frontend/src/features/valentine/ValentinePage.tsx"
-        ]
+        "summary": "If the backend needs new persistent state to support publishing/share links, add a conditional Motoko migration to preserve existing canister data across upgrade.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/public/assets/generated/valentine-bokeh-sparkles-overlay.dim_1920x1080.png",
-    "frontend/public/assets/generated/valentine-photo-1.dim_1200x800.png",
-    "frontend/public/assets/generated/valentine-photo-2.dim_1200x800.png",
-    "frontend/public/assets/generated/valentine-photo-3.dim_1200x800.png",
-    "frontend/src/components/CelebrationOverlay.tsx",
-    "frontend/src/config/valentineConfig.ts",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/features/memories/PublishShareCard.tsx",
+    "frontend/src/features/memories/SharedMemoriesGallery.tsx",
+    "frontend/src/features/memories/SharedMemoriesPage.tsx",
+    "frontend/src/features/memories/SharedMemoryDetailDialog.tsx",
     "frontend/src/features/valentine/ValentinePage.tsx",
-    "frontend/src/hooks/useEvasiveButton.ts",
-    "frontend/src/index.css",
+    "frontend/src/hooks/useSharePublishing.ts",
+    "frontend/src/hooks/useSharedMemories.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
